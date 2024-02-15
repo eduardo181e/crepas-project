@@ -1,0 +1,1 @@
+export const admin = "Maria del Carmen Sabedra Reyes";

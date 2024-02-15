@@ -1,0 +1,40 @@
+{
+  "name": "admin_crepas",
+  "version": "1.0.0",
+  "description": "api_aministrar la aplicasion",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -w",
+    "dev": "nodemon build/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/connect-flash": "^0.0.37",
+    "@types/express-session": "^1.17.7",
+    "@types/passport": "^1.0.12",
+    "@types/passport-local": "^1.0.35",
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "flatted": "^3.2.7",
+    "jsonwebtoken": "^9.0.1",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.5.2",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "promise-mysql": "^5.2.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/morgan": "^1.9.4",
+    "nodemon": "^3.0.1"
+  }
+}

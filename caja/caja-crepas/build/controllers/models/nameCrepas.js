@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ensaladas = exports.botanas = exports.bebidasFrias = exports.bebidasCalientes = exports.waffleCanasta = exports.waffles = exports.crepasDulce = exports.crepasSalada = void 0;
+exports.crepasSalada = 'Crepa Salada';
+exports.crepasDulce = 'Crepa Dulce';
+exports.waffles = 'Waffle';
+exports.waffleCanasta = 'Waffle Canasta';
+exports.bebidasCalientes = 'Bebida Caliente';
+exports.bebidasFrias = 'Bebida Fría';
+exports.botanas = 'Botana';
+exports.ensaladas = 'Ensalada Individual';
