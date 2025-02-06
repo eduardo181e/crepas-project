@@ -3,6 +3,7 @@ import { Router } from 'express';
 import waflesIUController from '../../../controllers/productsController/Wafles/waflesControllerIU';
 import waflesICController from '../../../controllers/productsController/Wafles/waflesControllerIC';
 import waflesNController from '../../../controllers/productsController/Wafles/waflesControllerN';
+import waflesDController from '../../../controllers/productsController/Wafles/waffleControlerD';
 import waflesPController from '../../../controllers/productsController/Wafles/waflesControllerP';
 
 class WaflesRoutes {
@@ -32,6 +33,10 @@ class WaflesRoutes {
         this.router.post('/N/',  waflesNController.create);
         this.router.delete('/N/:id', waflesNController.delete);
         this.router.put('/N/:id', waflesNController.update);
+        // Decoracion Wafles
+        this.router.get('/D/', waflesDController.list); 
+        this.router.get('/D/:id', waflesDController.getOne);       
+        this.router.put('/D/:id', waflesDController.update);
         // Precio Wafles
         this.router.get('/P/', waflesPController.list); 
         this.router.get('/P/:id', waflesPController.getOne);       

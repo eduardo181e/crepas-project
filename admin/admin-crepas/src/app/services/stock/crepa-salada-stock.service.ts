@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { API_BASE_URL } from '../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrepaSaladaStockService {
-  API_URI = 'http://localhost:3000/stock/crepaSalada'
+  API_URI = API_BASE_URL+'/stock/crepaSalada'
   constructor(private http: HttpClient) { }
 
   // Adereso Base

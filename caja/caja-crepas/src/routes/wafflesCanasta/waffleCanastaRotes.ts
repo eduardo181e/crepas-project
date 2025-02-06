@@ -3,6 +3,7 @@ import waflesCanastaController from '../../controllers/productsController/waffle
 import waflesCanastaICController from '../../controllers/productsController/waffleCanasta/waflesControllerIC';
 import waflesCanastaIUController from '../../controllers/productsController/waffleCanasta/waflesControllerIU';
 import waflesCanastaNController from '../../controllers/productsController/waffleCanasta/waflesControllerN';
+import waflesCanastaDController from '../../controllers/productsController/waffleCanasta/waflesControllerD';
 
 
 class WaflesCanastaRoutes {
@@ -23,6 +24,9 @@ class WaflesCanastaRoutes {
         // Nieves
         this.router.get('/N/', waflesCanastaNController.list);
         this.router.get('/N/:id', waflesCanastaNController.getOne);
+        // Decoraciones
+        this.router.get('/D/', waflesCanastaDController.list);
+        this.router.get('/D/:id', waflesCanastaDController.getOne);
         // Precios
         this.router.get('/P/', waflesCanastaController.list); 
         this.router.get('/P/:id', waflesCanastaController.getOne);       

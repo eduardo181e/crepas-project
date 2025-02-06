@@ -8,6 +8,7 @@ const crepaDulceControllerH_1 = __importDefault(require("../../../controllers/pr
 const crepaDulceControllerIU_1 = __importDefault(require("../../../controllers/productsController/CrepaDulce/crepaDulceControllerIU"));
 const crepaDulceContrllerIC_1 = __importDefault(require("../../../controllers/productsController/CrepaDulce/crepaDulceContrllerIC"));
 const crepaDulceControllerN_1 = __importDefault(require("../../../controllers/productsController/CrepaDulce/crepaDulceControllerN"));
+const crepaDulceControllerD_1 = __importDefault(require("../../../controllers/productsController/CrepaDulce/crepaDulceControllerD"));
 const crepaDulceControllerP_1 = __importDefault(require("../../../controllers/productsController/CrepaDulce/crepaDulceControllerP"));
 class CrepaDulceRoutes {
     constructor() {
@@ -39,6 +40,10 @@ class CrepaDulceRoutes {
         this.router.post('/N/', crepaDulceControllerN_1.default.create);
         this.router.delete('/N/:id', crepaDulceControllerN_1.default.delete);
         this.router.put('/N/:id', crepaDulceControllerN_1.default.update);
+        // Decoracion Crepa Dulce
+        this.router.get('/D/', crepaDulceControllerD_1.default.list);
+        this.router.get('/D/:id', crepaDulceControllerD_1.default.getOne);
+        this.router.put('/D/:id', crepaDulceControllerD_1.default.update);
         // Precios Crepa Dulce
         this.router.get('/P/', crepaDulceControllerP_1.default.list);
         this.router.get('/P/:id', crepaDulceControllerP_1.default.getOne);

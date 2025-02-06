@@ -93,7 +93,7 @@ console.log(decodedToken.password)
 if(user.password === decodedToken.password){
 await pool.promise().query('UPDATE caja_usuarios SET lang = ? WHERE username = ?', [newLang.trim(), username.trim()])
 .then(() =>{
-  const userData = { id: user.id, username: user.username, fullname: user.fullname, lang : newLang, password: user.password  };
+  const userData = { id: user.id, username: user.username, fullname: user.fullname, caja: user.numero_caja, sub: user.id, sucursal: user.sucursal_id, adminId: user.adminId, lang: newLang, password: user.password };
   const newToken = jwt.sign(userData, 'secreto-seguro');
   res.status(200).json({ message: 'Language change successfully', token:  newToken});
 })

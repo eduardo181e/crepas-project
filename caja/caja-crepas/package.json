@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc -w",
     "dev": "nodemon build/index.js",
-    "host": "nodemon build/index.js --host 192.168.0.9"
+    "start": "node build/index.js",
+    "host": "nodemon build/index.js --host 192.168.0.11"
   },
   "author": "",
   "license": "ISC",

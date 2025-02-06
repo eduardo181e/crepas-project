@@ -79,6 +79,39 @@ class SucursalesController {
             console.error('Error al realizar la consulta:', err);
         }
 
+        // Crepa Dulce Decoraciones
+    
+        try {
+            await pool1.promise().query('SELECT * FROM cdd WHERE adminId = ?',[adminId])
+            .then((result:any) => {
+                
+                result[0].forEach(async (element:any) => {
+                    console.log({id: element.id, harina: element.harina});
+                    console.log(insertId1)
+                    const elements:any = {
+                        sucursal_id: insertId1,
+                        product_id: element.id, 
+                        decoracion: element.decoracion,
+                        cantidad: element.inventario,
+                        adminId: adminId
+                    }
+                    await pool1.promise().query('INSERT INTO cdde SET ?', [elements])
+                    .then(() => {
+                        console.log('Registro de existencia del producto en la sucursal establecido')
+                    })
+                    .catch(err => {
+                        console.error('Error al establecer el registro de existencia del producto en la sucursal', err);
+                    })
+                }
+                )
+            })
+            .catch(err => {
+                console.error('Error al consultar cdth:', err);
+            });
+        } catch (err) {
+            console.error('Error al realizar la consulta:', err);
+        }
+
 
         // Crepa Dulce Ingredinetes Untables
 
@@ -474,6 +507,40 @@ class SucursalesController {
         console.error('Error al realizar la consulta:', err);
     }
 
+    
+    // Waffle Decoraciones
+
+    try {
+        await pool1.promise().query('SELECT * FROM wd WHERE adminId = ?',[adminId])
+        .then((result:any) => {
+            
+            result[0].forEach(async (element:any) => {
+                console.log({id: element.id, harina: element.harina});
+                console.log(insertId1)
+                const elements:any = {
+                    sucursal_id: insertId1,
+                    product_id: element.id, 
+                    decoracion: element.decoracion,
+                    cantidad: element.inventario,
+                    adminId: adminId
+                }
+                await pool1.promise().query('INSERT INTO wde SET ?', [elements])
+                .then(() => {
+                    console.log('Registro de existencia del producto en la sucursal establecido')
+                })
+                .catch(err => {
+                    console.error('Error al establecer el registro de existencia del producto en la sucursal', err);
+                })
+            }
+            )
+        })
+        .catch(err => {
+            console.error('Error al consultar cdth:', err);
+        });
+    } catch (err) {
+        console.error('Error al realizar la consulta:', err);
+    }
+
     // Waffle Canasta Ingredientes untables
     try {
         await pool1.promise().query('SELECT * FROM wciu WHERE adminId = ?',[adminId])
@@ -558,6 +625,40 @@ class SucursalesController {
         })
     }
     catch (err) {
+        console.error('Error al realizar la consulta:', err);
+    }
+
+
+    // Waffle Canasta Decoraciones
+
+    try {
+        await pool1.promise().query('SELECT * FROM wcd WHERE adminId = ?',[adminId])
+        .then((result:any) => {
+            
+            result[0].forEach(async (element:any) => {
+                console.log({id: element.id, harina: element.harina});
+                console.log(insertId1)
+                const elements:any = {
+                    sucursal_id: insertId1,
+                    product_id: element.id, 
+                    decoracion: element.decoracion,
+                    cantidad: element.inventario,
+                    adminId: adminId
+                }
+                await pool1.promise().query('INSERT INTO wcde SET ?', [elements])
+                .then(() => {
+                    console.log('Registro de existencia del producto en la sucursal establecido')
+                })
+                .catch(err => {
+                    console.error('Error al establecer el registro de existencia del producto en la sucursal', err);
+                })
+            }
+            )
+        })
+        .catch(err => {
+            console.error('Error al consultar cdth:', err);
+        });
+    } catch (err) {
         console.error('Error al realizar la consulta:', err);
     }
 
@@ -743,6 +844,16 @@ class SucursalesController {
         .catch(err => {
             console.error('Error al elimanar el registro de existencias de las nieves', err);
         })
+
+        // Eliminar registros de decoraciones crepa dulce
+
+        await pool1.promise().query('DELETE FROM cdde WHERE sucursal_id = ? AND adminId = ?',[id, adminId])
+        .then(() => {
+            console.log('Registro de existencias de nieves eliminado')
+        })
+        .catch(err => {
+            console.error('Error al elimanar el registro de existencias de las nieves', err);
+        })
         // Eliminar registros de ingredientes principales crepa salada
 
         await pool1.promise().query('DELETE FROM csipe WHERE sucursal_id = ? AND adminId = ?',[id, adminId])
@@ -829,6 +940,16 @@ class SucursalesController {
             console.error('Error al elimanar el registro de existencias de las nieves', err);
         })
 
+        // Eliminar registros de decoraciones waffle
+
+        await pool1.promise().query('DELETE FROM wde WHERE sucursal_id = ? AND adminId = ?',[id, adminId])
+        .then(() => {
+            console.log('Registro de existencias de nieves eliminado')
+        })
+        .catch(err => {
+            console.error('Error al elimanar el registro de existencias de las nieves', err);
+        })
+
         // Eliminar registros de ingredientes untables waffle canasta
 
         await pool1.promise().query('DELETE FROM wciue WHERE sucursal_id = ? AND adminId = ?',[id, adminId])
@@ -857,6 +978,17 @@ class SucursalesController {
         .catch(err => {
             console.error('Error al elimanar el registro de existencias de las nieves', err);
         })
+
+        // Eliminar registros de decoraciones waffle canasta
+
+        await pool1.promise().query('DELETE FROM wcde WHERE sucursal_id = ? AND adminId = ?',[id, adminId])
+        .then(() => {
+            console.log('Registro de existencias de nieves eliminado')
+        })
+        .catch(err => {
+            console.error('Error al elimanar el registro de existencias de las nieves', err);
+        })
+
         // Eliminar registros de bebidas calientes
 
         await pool1.promise().query('DELETE FROM bce WHERE sucursal_id = ? AND adminId = ?',[id, adminId])

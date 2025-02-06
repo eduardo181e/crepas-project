@@ -8,6 +8,7 @@ const waffleCanastaController_1 = __importDefault(require("../../../controllers/
 const waflesCanastaControllerIU_1 = __importDefault(require("../../../controllers/productsController/waffleCanasta/waflesCanastaControllerIU"));
 const waflesCanastaControllerIC_1 = __importDefault(require("../../../controllers/productsController/waffleCanasta/waflesCanastaControllerIC"));
 const waflesCanastaControllerN_1 = __importDefault(require("../../../controllers/productsController/waffleCanasta/waflesCanastaControllerN"));
+const waffleCanastaControlerD_1 = __importDefault(require("../../../controllers/productsController/waffleCanasta/waffleCanastaControlerD"));
 class WaflesCanastaRoutes {
     constructor() {
         this.router = (0, express_1.Router)();
@@ -32,6 +33,10 @@ class WaflesCanastaRoutes {
         this.router.post('/N/', waflesCanastaControllerN_1.default.create);
         this.router.delete('/N/:id', waflesCanastaControllerN_1.default.delete);
         this.router.put('/N/:id', waflesCanastaControllerN_1.default.update);
+        // Decoracion Wafles
+        this.router.get('/D/', waffleCanastaControlerD_1.default.list);
+        this.router.get('/D/:id', waffleCanastaControlerD_1.default.getOne);
+        this.router.put('/D/:id', waffleCanastaControlerD_1.default.update);
         // Precios
         this.router.get('/P/', waffleCanastaController_1.default.list);
         this.router.get('/P/:id', waffleCanastaController_1.default.getOne);

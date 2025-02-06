@@ -10,7 +10,7 @@ class VentasRoutes {
     }
 
     config(): void {
-        this.router.post('/sales/:now', ventasController.sales);
+        this.router.post('/sales/:now/:mesa', ventasController.sales);
     }
 }
 

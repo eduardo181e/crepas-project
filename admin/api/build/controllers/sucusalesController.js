@@ -84,6 +84,36 @@ class SucursalesController {
                 catch (err) {
                     console.error('Error al realizar la consulta:', err);
                 }
+                // Crepa Dulce Decoraciones
+                try {
+                    yield database_1.default.promise().query('SELECT * FROM cdd WHERE adminId = ?', [adminId])
+                        .then((result) => {
+                        result[0].forEach((element) => __awaiter(this, void 0, void 0, function* () {
+                            console.log({ id: element.id, harina: element.harina });
+                            console.log(insertId1);
+                            const elements = {
+                                sucursal_id: insertId1,
+                                product_id: element.id,
+                                decoracion: element.decoracion,
+                                cantidad: element.inventario,
+                                adminId: adminId
+                            };
+                            yield database_1.default.promise().query('INSERT INTO cdde SET ?', [elements])
+                                .then(() => {
+                                console.log('Registro de existencia del producto en la sucursal establecido');
+                            })
+                                .catch(err => {
+                                console.error('Error al establecer el registro de existencia del producto en la sucursal', err);
+                            });
+                        }));
+                    })
+                        .catch(err => {
+                        console.error('Error al consultar cdth:', err);
+                    });
+                }
+                catch (err) {
+                    console.error('Error al realizar la consulta:', err);
+                }
                 // Crepa Dulce Ingredinetes Untables
                 try {
                     yield database_1.default.promise().query('SELECT * FROM cdiu WHERE adminId = ?', [adminId])
@@ -445,6 +475,36 @@ class SucursalesController {
                 catch (err) {
                     console.error('Error al realizar la consulta:', err);
                 }
+                // Waffle Decoraciones
+                try {
+                    yield database_1.default.promise().query('SELECT * FROM wd WHERE adminId = ?', [adminId])
+                        .then((result) => {
+                        result[0].forEach((element) => __awaiter(this, void 0, void 0, function* () {
+                            console.log({ id: element.id, harina: element.harina });
+                            console.log(insertId1);
+                            const elements = {
+                                sucursal_id: insertId1,
+                                product_id: element.id,
+                                decoracion: element.decoracion,
+                                cantidad: element.inventario,
+                                adminId: adminId
+                            };
+                            yield database_1.default.promise().query('INSERT INTO wde SET ?', [elements])
+                                .then(() => {
+                                console.log('Registro de existencia del producto en la sucursal establecido');
+                            })
+                                .catch(err => {
+                                console.error('Error al establecer el registro de existencia del producto en la sucursal', err);
+                            });
+                        }));
+                    })
+                        .catch(err => {
+                        console.error('Error al consultar cdth:', err);
+                    });
+                }
+                catch (err) {
+                    console.error('Error al realizar la consulta:', err);
+                }
                 // Waffle Canasta Ingredientes untables
                 try {
                     yield database_1.default.promise().query('SELECT * FROM wciu WHERE adminId = ?', [adminId])
@@ -521,6 +581,36 @@ class SucursalesController {
                                 console.error('Error al establecer el registro de existencia del producto en la sucursal', err);
                             });
                         }));
+                    });
+                }
+                catch (err) {
+                    console.error('Error al realizar la consulta:', err);
+                }
+                // Waffle Canasta Decoraciones
+                try {
+                    yield database_1.default.promise().query('SELECT * FROM wcd WHERE adminId = ?', [adminId])
+                        .then((result) => {
+                        result[0].forEach((element) => __awaiter(this, void 0, void 0, function* () {
+                            console.log({ id: element.id, harina: element.harina });
+                            console.log(insertId1);
+                            const elements = {
+                                sucursal_id: insertId1,
+                                product_id: element.id,
+                                decoracion: element.decoracion,
+                                cantidad: element.inventario,
+                                adminId: adminId
+                            };
+                            yield database_1.default.promise().query('INSERT INTO wcde SET ?', [elements])
+                                .then(() => {
+                                console.log('Registro de existencia del producto en la sucursal establecido');
+                            })
+                                .catch(err => {
+                                console.error('Error al establecer el registro de existencia del producto en la sucursal', err);
+                            });
+                        }));
+                    })
+                        .catch(err => {
+                        console.error('Error al consultar cdth:', err);
                     });
                 }
                 catch (err) {
@@ -695,6 +785,14 @@ class SucursalesController {
                     .catch(err => {
                     console.error('Error al elimanar el registro de existencias de las nieves', err);
                 });
+                // Eliminar registros de decoraciones crepa dulce
+                yield database_1.default.promise().query('DELETE FROM cdde WHERE sucursal_id = ? AND adminId = ?', [id, adminId])
+                    .then(() => {
+                    console.log('Registro de existencias de nieves eliminado');
+                })
+                    .catch(err => {
+                    console.error('Error al elimanar el registro de existencias de las nieves', err);
+                });
                 // Eliminar registros de ingredientes principales crepa salada
                 yield database_1.default.promise().query('DELETE FROM csipe WHERE sucursal_id = ? AND adminId = ?', [id, adminId])
                     .then(() => {
@@ -767,6 +865,14 @@ class SucursalesController {
                     .catch(err => {
                     console.error('Error al elimanar el registro de existencias de las nieves', err);
                 });
+                // Eliminar registros de decoraciones waffle
+                yield database_1.default.promise().query('DELETE FROM wde WHERE sucursal_id = ? AND adminId = ?', [id, adminId])
+                    .then(() => {
+                    console.log('Registro de existencias de nieves eliminado');
+                })
+                    .catch(err => {
+                    console.error('Error al elimanar el registro de existencias de las nieves', err);
+                });
                 // Eliminar registros de ingredientes untables waffle canasta
                 yield database_1.default.promise().query('DELETE FROM wciue WHERE sucursal_id = ? AND adminId = ?', [id, adminId])
                     .then(() => {
@@ -785,6 +891,14 @@ class SucursalesController {
                 });
                 // Eliminar registros de nieves waffle canasta
                 yield database_1.default.promise().query('DELETE FROM wcne WHERE sucursal_id = ? AND adminId = ?', [id, adminId])
+                    .then(() => {
+                    console.log('Registro de existencias de nieves eliminado');
+                })
+                    .catch(err => {
+                    console.error('Error al elimanar el registro de existencias de las nieves', err);
+                });
+                // Eliminar registros de decoraciones waffle canasta
+                yield database_1.default.promise().query('DELETE FROM wcde WHERE sucursal_id = ? AND adminId = ?', [id, adminId])
                     .then(() => {
                     console.log('Registro de existencias de nieves eliminado');
                 })

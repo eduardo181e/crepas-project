@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { API_BASE_URL } from './environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SucursalesService {
-  API_URI = 'http://localhost:3000/sucursales'
+  API_URI = API_BASE_URL+'/sucursales'
   constructor(private http: HttpClient) { }
     // Ingrediente Untable
     getSucursales(){

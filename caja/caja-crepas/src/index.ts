@@ -42,11 +42,10 @@ class Server {
 
         this.app.set('port', 3001);
         this.app.use(morgan('dev'));
-        this.app.use(cors(
-            {
-                origin: 'http://192.168.0.9:8080',
-                credentials: true
-            }
+        this.app.use(cors({
+        origin: 'http://192.168.0.11:8080',
+          credentials: true
+        }
         ));
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: false}));

@@ -3,6 +3,7 @@ import waflesCanastaController from '../../../controllers/productsController/waf
 import waflesCanastaIUController from '../../../controllers/productsController/waffleCanasta/waflesCanastaControllerIU';
 import waflesCanastaICController from '../../../controllers/productsController/waffleCanasta/waflesCanastaControllerIC';
 import waflesCanastaNController from '../../../controllers/productsController/waffleCanasta/waflesCanastaControllerN';
+import waflesCanastaDController from '../../../controllers/productsController/waffleCanasta/waffleCanastaControlerD';
 class WaflesCanastaRoutes {
 
     public router: Router = Router();
@@ -30,6 +31,10 @@ class WaflesCanastaRoutes {
         this.router.post('/N/',  waflesCanastaNController.create);
         this.router.delete('/N/:id', waflesCanastaNController.delete);
         this.router.put('/N/:id', waflesCanastaNController.update);
+        // Decoracion Wafles
+        this.router.get('/D/', waflesCanastaDController.list); 
+        this.router.get('/D/:id', waflesCanastaDController.getOne);       
+        this.router.put('/D/:id', waflesCanastaDController.update);
         // Precios
         this.router.get('/P/', waflesCanastaController.list); 
         this.router.get('/P/:id', waflesCanastaController.getOne);       

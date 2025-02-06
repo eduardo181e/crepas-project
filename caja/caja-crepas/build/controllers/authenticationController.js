@@ -118,7 +118,7 @@ class AuthenticationContoller {
                             if (user.password === decodedToken.password) {
                                 yield databaseproduct_1.default.promise().query('UPDATE caja_usuarios SET lang = ? WHERE username = ?', [newLang.trim(), username.trim()])
                                     .then(() => {
-                                    const userData = { id: user.id, username: user.username, fullname: user.fullname, lang: newLang, password: user.password };
+                                    const userData = { id: user.id, username: user.username, fullname: user.fullname, caja: user.numero_caja, sub: user.id, sucursal: user.sucursal_id, adminId: user.adminId, lang: newLang, password: user.password };
                                     const newToken = jsonwebtoken_1.default.sign(userData, 'secreto-seguro');
                                     res.status(200).json({ message: 'Language change successfully', token: newToken });
                                 })

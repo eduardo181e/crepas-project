@@ -98,7 +98,7 @@ passport.use('local.signup', new LocalStrategy(
        ]
 
        cdUntable.forEach(async (element:any, index:any) => {
-        if (index % 2 === 0) {
+        if ((index + 1) % 2 === 0) {
           // Acción para números pares
           await pool.promise().query('INSERT INTO cdiu SET ?', {ingrediente_unt:element, inventario: 1, adminId: adminId})
           .then((result:any) => {
@@ -116,7 +116,7 @@ passport.use('local.signup', new LocalStrategy(
        });
 
        cdUntable.forEach(async (element:any, index:any) => {
-        if (index % 2 === 0) {
+        if ((index + 1) % 2 === 0) {
           // Acción para números pares
           await pool.promise().query('INSERT INTO wiu SET ?', {ingrediente_unt:element, inventario: 1, adminId: adminId})
           .then((result:any) => {
@@ -134,7 +134,7 @@ passport.use('local.signup', new LocalStrategy(
        });
 
        cdUntable.forEach(async (element:any, index:any) => {
-        if (index % 2 === 0) {
+        if ((index + 1) % 2 === 0) {
           // Acción para números pares
           await pool.promise().query('INSERT INTO wciu SET ?', {ingrediente_unt:element, inventario: 1, adminId: adminId})
           .then((result:any) => {
@@ -159,7 +159,7 @@ passport.use('local.signup', new LocalStrategy(
        ]
 
        cdHarinas.forEach(async (element:any, index:any) => {
-        if (index % 2 === 0) {
+        if ((index + 1) % 2 === 0) {
           // Acción para números pares
           await pool.promise().query('INSERT INTO cdth SET ?', {harina:element, inventario: 1, adminId: adminId})
           .then((result:any) => {
@@ -240,7 +240,7 @@ passport.use('local.signup', new LocalStrategy(
        ]
 
        cdComplementos.forEach(async (element:any, index:any) => {
-        if (index % 2 === 0) {
+        if ((index + 1) % 2 === 0) {
           // Acción para números pares
           await pool.promise().query('INSERT INTO cdic SET ?', {ingrediente_com:element.complemento, tipo:element.tipo, inventario: 1, adminId: adminId})
           .then((result:any) => {
@@ -258,7 +258,7 @@ passport.use('local.signup', new LocalStrategy(
        });
 
        cdComplementos.forEach(async (element:any, index:any) => {
-        if (index % 2 === 0) {
+        if ((index + 1) % 2 === 0) {
           // Acción para números pares
           await pool.promise().query('INSERT INTO wic SET ?', {ingrediente_com:element.complemento, tipo:element.tipo, inventario: 1, adminId: adminId})
           .then((result:any) => {
@@ -276,7 +276,7 @@ passport.use('local.signup', new LocalStrategy(
        });
 
        cdComplementos.forEach(async (element:any, index:any) => {
-        if (index % 2 === 0) {
+        if ((index + 1) % 2 === 0) {
           // Acción para números pares
           await pool.promise().query('INSERT INTO wcic SET ?', {ingrediente_com:element.complemento, tipo:element.tipo, inventario: 1, adminId: adminId})
           .then((result:any) => {
@@ -307,7 +307,7 @@ passport.use('local.signup', new LocalStrategy(
        ]
 
        cdNieve.forEach(async (element:any, index:any) => {
-        if (index % 2 === 0) {
+        if ((index + 1) % 2 === 0) {
           // Acción para números pares
           await pool.promise().query('INSERT INTO cdn SET ?', {nieve:element, inventario: 1, adminId: adminId})
           .then((result:any) => {
@@ -325,7 +325,7 @@ passport.use('local.signup', new LocalStrategy(
        });
 
        cdNieve.forEach(async (element:any, index:any) => {
-        if (index % 2 === 0) {
+        if ((index + 1) % 2 === 0) {
           // Acción para números pares
           await pool.promise().query('INSERT INTO wn SET ?', {nieve:element, inventario: 1, adminId: adminId})
           .then((result:any) => {
@@ -343,7 +343,7 @@ passport.use('local.signup', new LocalStrategy(
        });
 
        cdNieve.forEach(async (element:any, index:any) => {
-        if (index % 2 === 0) {
+        if ((index + 1) % 2 === 0) {
           // Acción para números pares
           await pool.promise().query('INSERT INTO wcn SET ?', {nieve:element, inventario: 1, adminId: adminId})
           .then((result:any) => {
@@ -353,6 +353,67 @@ passport.use('local.signup', new LocalStrategy(
         } else {
           // Acción para números impares
           await pool.promise().query('INSERT INTO wcn SET ?', {nieve:element, inventario: 0, adminId: adminId})
+          .then((result:any) => {
+          })
+          .catch(err => {
+          });
+        }
+       });
+
+       const cdDecoraciones:any = [
+        'Azucar Glass',
+        'Canela en polvo',
+        'Lechera',
+        'Chocolate'
+       ] 
+
+       cdDecoraciones.forEach(async (element:any, index:any) => {
+        if ((index + 1) % 2 === 0) {
+          // Acción para números pares
+          await pool.promise().query('INSERT INTO cdd SET ?', {decoracion:element, inventario: 1, adminId: adminId})
+          .then((result:any) => {
+          })
+          .catch(err => {
+          });
+        } else {
+          // Acción para números impares
+          await pool.promise().query('INSERT INTO cdd SET ?', {decoracion:element, inventario: 0, adminId: adminId})
+          .then((result:any) => {
+          })
+          .catch(err => {
+          });
+        }
+       });
+
+       cdDecoraciones.forEach(async (element:any, index:any) => {
+        if ((index + 1) % 2 === 0) {
+          // Acción para números pares
+          await pool.promise().query('INSERT INTO wcd SET ?', {decoracion:element, inventario: 1, adminId: adminId})
+          .then((result:any) => {
+          })
+          .catch(err => {
+          });
+        } else {
+          // Acción para números impares
+          await pool.promise().query('INSERT INTO wcd SET ?', {decoracion:element, inventario: 0, adminId: adminId})
+          .then((result:any) => {
+          })
+          .catch(err => {
+          });
+        }
+       });
+
+       cdDecoraciones.forEach(async (element:any, index:any) => {
+        if ((index + 1) % 2 === 0) {
+          // Acción para números pares
+          await pool.promise().query('INSERT INTO wd SET ?', {decoracion:element, inventario: 1, adminId: adminId})
+          .then((result:any) => {
+          })
+          .catch(err => {
+          });
+        } else {
+          // Acción para números impares
+          await pool.promise().query('INSERT INTO wd SET ?', {decoracion:element, inventario: 0, adminId: adminId})
           .then((result:any) => {
           })
           .catch(err => {
@@ -371,7 +432,7 @@ passport.use('local.signup', new LocalStrategy(
         ]
 
         csIP.forEach(async (element:any, index:any) => {
-          if (index % 2 === 0) {
+          if ((index + 1) % 2 === 0) {
             // Acción para números pares
             await pool.promise().query('INSERT INTO csip SET ?', {ingrediente_pri:element, inventario: 1, adminId: adminId})
             .then((result:any) => {
@@ -398,7 +459,7 @@ passport.use('local.signup', new LocalStrategy(
         ]
 
         csAE.forEach(async (element:any, index:any) => {
-          if (index % 2 === 0) {
+          if ((index + 1) % 2 === 0) {
             // Acción para números pares
             await pool.promise().query('INSERT INTO csa SET ?', {adereso:element, inventario: 1, adminId: adminId})
             .then((result:any) => {
@@ -420,7 +481,7 @@ passport.use('local.signup', new LocalStrategy(
         ]
 
         csAB.forEach(async (element:any, index:any) => {
-          if (index % 2 === 0) {
+          if ((index + 1) % 2 === 0) {
             // Acción para números pares
             await pool.promise().query('INSERT INTO csab SET ?', {adereso_base:element, inventario: 1, adminId: adminId})
             .then((result:any) => {
@@ -443,7 +504,7 @@ passport.use('local.signup', new LocalStrategy(
         ]
 
         csIB.forEach(async (element:any, index:any) => {
-          if (index % 2 === 0) {
+          if ((index + 1) % 2 === 0) {
             // Acción para números pares
             await pool.promise().query('INSERT INTO csib SET ?', {ingrediente_base:element, inventario: 1, adminId: adminId})
             .then((result:any) => {
@@ -464,6 +525,7 @@ passport.use('local.signup', new LocalStrategy(
           {descripcion: 'Regular', precio: 55},
           {descripcion: 'Extra', precio: 5},
           {descripcion: 'Nieve', precio: 25},
+          {descripcion: 'Decoracion', precio: 5},
          ]
 
          cdp.forEach(async (element:any, index:any) => {
@@ -493,6 +555,7 @@ passport.use('local.signup', new LocalStrategy(
           {descripcion: 'Nieve', precio: 25},
           {descripcion: 'Extra', precio: 5},
           {descripcion: 'Regular', precio: 55},
+          {descripcion: 'Decoracion', precio: 5},
          ]
 
          wp.forEach(async (element:any, index:any) => {
@@ -507,6 +570,7 @@ passport.use('local.signup', new LocalStrategy(
          const wcp = [
           {descripcion: 'Extra', precio: 5},
           {descripcion: 'Regular', precio: 55},
+          {descripcion: 'Decoracion', precio: 5},
          ]
 
          wcp.forEach(async (element:any, index:any) => {
@@ -531,7 +595,7 @@ passport.use('local.signup', new LocalStrategy(
         ]
 
         ensaladaInd.forEach(async (element:any, index:any) => {
-          if (index % 2 === 0) {
+          if ((index + 1) % 2 === 0) {
             const Ensalada = {
               ensalada_ind: element.nombre,
               descripcion: element.descripcion,
@@ -583,7 +647,7 @@ passport.use('local.signup', new LocalStrategy(
         ]
 
         Botanas.forEach(async (element:any, index:any) => {
-          if (index % 2 === 0) {
+          if ((index + 1) % 2 === 0) {
             const botana = {
               botana: element.nombre,
               precio: element.precio,
@@ -653,7 +717,7 @@ passport.use('local.signup', new LocalStrategy(
         ]
 
         bebidasCalientes.forEach(async (element:any, index:any) => {
-          if (index % 2 === 0) {
+          if ((index + 1) % 2 === 0) {
             const bebida = {
               bebida: element.nombre,
               descripcion: element.descripcion,
@@ -730,7 +794,7 @@ passport.use('local.signup', new LocalStrategy(
         ]
 
         bebidasFrias.forEach(async (element:any, index:any) => {
-          if (index % 2 === 0) {
+          if ((index + 1) % 2 === 0) {
             const bebida = {
               bebida: element.nombre,
               descripcion: element.descripcion,

@@ -48,12 +48,12 @@ passport_1.default.use('local.signin', new passport_local_1.Strategy({
         }
         else {
             console.log('Incorrect password');
-            return done(null, false, { message: 'Contraseña Incorrecta' });
+            return done(null, false, { message: '405' });
         }
     }
     else if (rows[0][0] === undefined) {
         console.log('The username does not exist');
-        return done(null, false, { message: 'El usuario no existe' });
+        return done(null, false, { message: '404' });
     }
 })));
 exports.default = user1;

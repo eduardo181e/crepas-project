@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 import { precio } from '../models/precio';
 import { ensalada } from '../models/ensalada_ind';
 import { botana } from '../models/botana';
+import { API_BASE_URL } from './environment';
 @Injectable({
   providedIn: 'root'
 })
 export class CrepaSaladaService {
-  API_URI = 'http://localhost:3000/crepaSalada'
+  API_URI = API_BASE_URL+'/crepaSalada'
   constructor(private http: HttpClient) { }
     // Ingrediente Principal
     getIngredientesP(){

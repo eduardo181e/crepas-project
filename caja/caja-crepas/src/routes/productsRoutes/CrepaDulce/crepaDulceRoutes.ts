@@ -6,6 +6,7 @@ import crepaDulceIUController from '../../../controllers/productsController/Crep
 import crepaDulceICController from '../../../controllers/productsController/CrepaDulce/crepaDulceContrllerIC';
 import crepaDulceNController from '../../../controllers/productsController/CrepaDulce/crepaDulceControllerN';
 import crepaDulcePController from '../../../controllers/productsController/CrepaDulce/crepaDulceControllerP';
+import crepaDulceDController from '../../../controllers/productsController/CrepaDulce/crepaDulceControllerD';
 
 class CrepaDulceRoutes {
 
@@ -28,6 +29,8 @@ class CrepaDulceRoutes {
         this.router.post('/IC/sales/', crepaDulceICController.sales); 
         // Nieve Crepa Dulce
         this.router.get('/N/', crepaDulceNController.list);      
+        // Decoracion Crepa Dulce
+        this.router.get('/D/', crepaDulceDController.list);      
         // Precios Crepa Dulce
         this.router.get('/P/', crepaDulcePController.list); 
         this.router.get('/P/:id', crepaDulcePController.getOne);       

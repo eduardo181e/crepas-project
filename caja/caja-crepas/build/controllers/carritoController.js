@@ -94,6 +94,25 @@ class CarritoController {
             });
         });
     }
+    updateMesa(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const token = req.headers['authorization'];
+            const tokenWithoutBearer = token.replace('Bearer ', '');
+            const decodedToken = jsonwebtoken_1.default.verify(tokenWithoutBearer, 'secreto-seguro');
+            const userId = decodedToken.id;
+            const adminId = decodedToken.adminId;
+            const mesa = req.body.mesa;
+            const query = 'UPDATE carrito_caja SET mesa = ? WHERE userId = ? AND adminId = ?';
+            const bebidas = yield databaseproduct_1.default.promise().query(query, [mesa, userId, adminId])
+                .then(() => {
+                res.json({ text: 'Mesa actualizada' });
+            })
+                .catch(err => {
+                console.error('Error al actualizar la orden', err);
+                res.status(200).json({ error: 'Error al actualizar la orden' });
+            });
+        });
+    }
     deleteAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const token = req.headers['authorization'];
@@ -121,6 +140,7 @@ class CarritoController {
             const ordenId = req.params.id;
             const adminId = decodedToken.adminId;
             const { orden } = req.body;
+            orden.precio = req.body.precio;
             const orden1 = JSON.stringify(orden);
             const Orden = {
                 orden: orden1,

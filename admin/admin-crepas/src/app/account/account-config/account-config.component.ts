@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertDialogService } from 'src/app/alert-dialog.service';
+import { AuthService } from 'src/app/services/auth-service.service';
 import { SigninAdminService } from 'src/app/services/signin-admin.service';
 import { TranslateService } from 'src/app/translate/translate.service';
 @Component({
@@ -9,7 +10,7 @@ import { TranslateService } from 'src/app/translate/translate.service';
   styleUrls: ['./account-config.component.css']
 })
 export class AccountConfigComponent {
-  constructor(private signinAdminService: SigninAdminService, private router: Router, private alertService: AlertDialogService, private translateService: TranslateService) { }
+  constructor(private signinAdminService: SigninAdminService, private router: Router, private alertService: AlertDialogService, private translateService: TranslateService, private authService: AuthService ) { }
   token:any
   username:any
   fullname:any
@@ -74,10 +75,27 @@ export class AccountConfigComponent {
       },
       err => {
         if(err.error.message === 'Token expired'){
-          this.alertService.mostrarAlerta('Tu sesión ha expirado, inicia sesión nuevamente');
+          if(this.authService.lang() === 'es'){
+            this.alertService.mostrarAlerta('Tu sesión ha expirado, inicia sesión nuevamente');
+            }else if(this.authService.lang() === 'en'){
+              this.alertService.mostrarAlerta('Your session has expired, log in again');
+            }
           this.router.navigate(['admin']);
         }else {
-          this.alertService.mostrarAlerta(err.error.message);
+          if(err.error.message === '407'){
+          if(this.authService.lang() === 'es'){
+            this.alertService.mostrarAlerta('El nombre de usuario ya existe');
+            }else if(this.authService.lang() === 'en'){
+              this.alertService.mostrarAlerta('Username already exist');
+            }
+          }else if(err.error.message === '406' || err.error.message === '405'){
+            if(this.authService.lang() === 'es'){
+              this.alertService.mostrarAlerta('Error al actualizar el usuario');
+              }else if(this.authService.lang() === 'en'){
+                this.alertService.mostrarAlerta('Error updating user');
+              }
+          }
+          
         }
       }
       )

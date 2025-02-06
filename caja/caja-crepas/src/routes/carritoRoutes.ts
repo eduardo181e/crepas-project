@@ -15,6 +15,7 @@ class CarritoRoutes {
         this.router.post('/add', carritoController.agregar);
         this.router.get('/view', carritoController.view);
         this.router.delete('/delete/:id', carritoController.delete);
+        this.router.put('/update', carritoController.updateMesa);
         this.router.get('/one/:id', carritoController.viewOne);
         this.router.put('/edit/:id', carritoController.update);
         this.router.get('/factura/:id', carritoController.getFactura);

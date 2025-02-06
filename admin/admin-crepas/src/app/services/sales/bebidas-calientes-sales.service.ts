@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { API_BASE_URL } from '../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BebidasCalientesSalesService {
-  API_URI = 'http://localhost:3000/sales/bebidasCalientes'
+  API_URI = API_BASE_URL+'/sales/bebidasCalientes'
   constructor(private http: HttpClient) { }
   getBebidasCalientes(sucursal_id: any){
     return this.http.post((this.API_URI), sucursal_id);

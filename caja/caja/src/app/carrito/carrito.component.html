@@ -11,6 +11,31 @@
 
 <div *ngIf="ordenes1()"class="container">
 
+<div class="mesa">
+    <h3 style="background: brown;
+    width: 20%;
+    padding: 8px;
+    font-family: 'FontsCarta';
+    color: white;
+    font-size: 30px;
+    border-radius: 5px;">{{'mesa' | translate}}</h3>
+        <div style="display: flex; align-items: center; margin-bottom: 15px;
+    margin-top: 20px;">
+            <input type="number" 
+                   [(ngModel)]="mesa" 
+                   name="mesa"
+                   style="font-family: 'FontsCarta'; font-size: 25px; border-radius: 5px;">
+                    <i style="    color: black;
+                    background-color: rgba(0, 128, 255, 1);
+                    height: 33px;
+                    width: 35px;
+                    border-radius: 5px;
+                    font-size: 30px;
+                    padding-top: 5px;
+                    padding-left: 5px;" class="fas fa-undo-alt" (click)="updateMesa()"></i>    
+        </div>
+
+</div>
 
 <!-- Tabla de productos de crepa dulce -->
 <div *ngFor="let dulce of crepasDulces; let i = index">
@@ -20,6 +45,7 @@
     <div class="inventarioCom" *ngFor="let warning1 of inventarioIngredientesUntCrepaD[i]" >{{warning1}}</div>
     <div class="inventarioCom" *ngFor="let warning1 of inventarioNievesCrepaD[i]" >{{warning1}}</div>
     <div class="inventarioCom" *ngFor="let warning1 of invenatrioHarinasCrepaD[i]" >{{warning1}}</div>
+    <div class="inventarioCom" *ngFor="let warning1 of invenatrioDecoracionesCrepaD[i]" >{{warning1}}</div>
 </div>
 
     <table class="table" >
@@ -39,7 +65,7 @@
         </thead>
         <tbody>
             <tr >
-                <td class="border-cell dulce1 r4">{{ dulce.nombre }}</td>
+                <td class="border-cell dulce1 r4">{{'crepas.dulces' | translate}}</td>
                 <td class="border-cell dulce1">
                 <select  (change)="actualizarCantidad(dulce, dulce.id)" [(ngModel)]="dulce.cantidad" class="form-control" name="cantidad">
                     <option  [value]= "1">
@@ -92,8 +118,8 @@
                     </ul>
                 </td>
                 <td class="border-cell dulce1">
-                    <ul class="ingredient-list">
-                        <div><li *ngFor="let nieve of dulce.orden.decoracion">{{ nieve.nombre }}</li></div>
+                    <ul class="ingredient-list" style="margin-left: 10px;">
+                        <div><li *ngFor="let nieve of decoracionesCrepaD1[i]"><i *ngIf="!nieve.existencia" (click)="deleteDecoracion(dulce, nieve.nombre, dulce.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ nieve.nombre }}</div></li></div>
                     </ul>
                 </td>
                 <td class="border-cell dulce1">{{ dulce.total }}</td>
@@ -129,7 +155,7 @@
         </thead>
         <tbody>
             <tr>
-                <td class="border-cell salado1 r4">{{ salada.nombre }}</td>
+                <td class="border-cell salado1 r4">{{'crepas.saladas' | translate}}</td>
                 <td class="border-cell salado1">
                 <select (change)="actualizarCantidad(salada, salada.id)" [(ngModel)]="salada.cantidad" class="form-control" name="cantidad">
                     <option  [value]= "1">
@@ -214,7 +240,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="border-cell caliente1 r4">{{ caliente.nombre }}</td>
+                    <td class="border-cell caliente1 r4">{{'bebidas.calientes' | translate}}</td>
                     <td class="border-cell caliente1">
                     <select (change)="actualizarCantidad(caliente, caliente.id)" [(ngModel)]="caliente.cantidad" class="form-control" name="cantidad">
                         <option  [value]= "1">
@@ -279,7 +305,7 @@
                     </thead>
                     <tbody>
                         <tr >
-                            <td class="border-cell frio1 r4">{{ frias.nombre }}</td>
+                            <td class="border-cell frio1 r4">{{'bebidas.frias' | translate}}</td>
                             <td class="border-cell frio1">
                             <select (change)="actualizarCantidad(frias, frias.id)" [(ngModel)]="frias.cantidad" class="form-control" name="cantidad">
                                 <option  [value]= "1">
@@ -334,6 +360,7 @@
      <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesIngCom[i]" >{{warning1}}</div>
      <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesIngUnt[i]" >{{warning1}}</div>
      <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesNieve[i]" >{{warning1}}</div>
+     <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesDecoraciones[i]" >{{warning1}}</div>
     <table class="table" >
         <thead>
             <tr>
@@ -350,7 +377,7 @@
         </thead>
         <tbody>
             <tr >
-                <td class="border-cell waffle1 r4">{{ waffle.nombre }}</td>
+                <td class="border-cell waffle1 r4">{{'waffles' | translate}}</td>
                 <td class="border-cell waffle1"> 
                 <select (change)="actualizarCantidad(waffle, waffle.id)" [(ngModel)]="waffle.cantidad" class="form-control" name="cantidad">
                     <option  [value]= "1">
@@ -402,8 +429,8 @@
                     </ul>
                 </td>
                 <td class="border-cell waffle1">
-                    <ul class="ingredient-list">
-                        <div><li *ngFor="let nieve of waffle.orden.decoracion">{{ nieve.nombre }}</li></div>
+                    <ul class="ingredient-list" style="margin-left: 10px;">
+                        <div><li *ngFor="let nieve of waffles1Decoraciones[i]"><i *ngIf="!nieve.existencia" (click)="deleteDecoracionWaffle(waffle, nieve.nombre, waffle.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ nieve.nombre }}</div></li></div>
                     </ul>
                 </td>
                 <td class="border-cell waffle1">{{ waffle.total }}</td>
@@ -422,6 +449,7 @@
         <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesIngComCanasta[i]" >{{warning1}}</div>
         <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesIngUntCanasta[i]" >{{warning1}}</div>
         <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesNieveCanasta[i]" >{{warning1}}</div>
+        <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesDecoracionesCanasta[i]" >{{warning1}}</div>
         <table class="table" >
             <thead>
                 <tr>
@@ -438,7 +466,7 @@
             </thead>
             <tbody>
                 <tr >
-                    <td class="border-cell canasta1 r4">{{ waffle.nombre }}</td>
+                    <td class="border-cell canasta1 r4">{{'waffles.canasta' | translate}}</td>
                     <td class="border-cell canasta1">
                     <select  (change)="actualizarCantidad(waffle, waffle.id)" [(ngModel)]="waffle.cantidad" class="form-control" name="cantidad">
                         <option  [value]= "1">
@@ -490,8 +518,8 @@
                         </ul>
                     </td>
                     <td class="border-cell canasta1">
-                        <ul class="ingredient-list">
-                            <div><li *ngFor="let nieve of waffle.orden.decoracion">{{ nieve.nombre }}</li></div>
+                        <ul class="ingredient-list" style="margin-left: 10px;">
+                            <div><li *ngFor="let nieve of wafflesCanasta1Decoraciones[i]"><i *ngIf="!nieve.existencia" (click)="deleteDecoracionWaffleCanasta(waffle, nieve.nombre, waffle.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ nieve.nombre }}</div></li></div>
                         </ul>
                     </td>
                     <td class="border-cell canasta1">{{ waffle.total }}</td>
@@ -520,7 +548,7 @@
     </thead>
     <tbody>
         <tr >
-            <td class="border-cell botana1 r4">{{ botana.nombre }}</td>
+            <td class="border-cell botana1 r4">{{'botanas' | translate}}</td>
             <td class="border-cell botana1">
             <select  (change)="actualizarCantidad(botana, botana.id)" [(ngModel)]="botana.cantidad" class="form-control" name="cantidad">
                 <option  [value]= "1">
@@ -587,7 +615,7 @@
     </thead>
     <tbody>
         <tr >
-            <td class="border-cell ensalada1 r4">{{ ensalada.nombre }}</td>
+            <td class="border-cell ensalada1 r4">{{'ensaladas.individuales' | translate}}</td>
             <td class="border-cell ensalada1">
             <select  (change)="actualizarCantidad(ensalada, ensalada.id)" [(ngModel)]="ensalada.cantidad" class="form-control" name="cantidad">
                 <option  [value]= "1">
@@ -643,10 +671,41 @@
 <div class="realiz">
     <button (click)="comprar()" class="btn btn-primary">{{'carrito.realiz' | translate}}</button>
 </div>
+<div class="realiz">
+    <button (click)="imprimir()" class="btn btn-primary">{{'imprimir' | translate}}</button>
+</div>
 
 </div>
 
 <div *ngIf="ordenes1()"class="containerRes">
+
+    <div class="mesa">
+        <h3 style="background: brown;
+        width: 20%;
+        padding: 8px;
+        font-family: 'FontsCarta';
+        color: white;
+        font-size: 30px;
+        border-radius: 5px;">{{'mesa' | translate}}</h3>
+<div style="display: flex; align-items: center; margin-bottom: 15px;
+margin-top: 20px;">
+        <input type="number" 
+               [(ngModel)]="mesa" 
+               name="mesa"
+               style="font-family: 'FontsCarta'; font-size: 25px; border-radius: 5px; width: 50%;">
+                <i style="    color: black;
+                background-color: rgba(0, 128, 255, 1);
+                height: 33px;
+                width: 35px;
+                border-radius: 5px;
+                font-size: 30px;
+                padding-top: 5px;
+                padding-left: 5px;" class="fas fa-undo-alt" (click)="updateMesa()"></i>    
+    </div>
+
+
+    </div>
+    
 
 
     <!-- Tabla de productos de crepa dulce -->
@@ -657,11 +716,12 @@
         <div class="inventarioCom" *ngFor="let warning1 of inventarioIngredientesUntCrepaD[i]" >{{warning1}}</div>
         <div class="inventarioCom" *ngFor="let warning1 of inventarioNievesCrepaD[i]" >{{warning1}}</div>
         <div class="inventarioCom" *ngFor="let warning1 of invenatrioHarinasCrepaD[i]" >{{warning1}}</div>
+        <div class="inventarioCom" *ngFor="let warning1 of invenatrioDecoracionesCrepaD[i]" >{{warning1}}</div>
     </div>
     <div class="dulceRes">
         <div class="Col">
                 <div class="dulce">{{'name' | translate}}</div>
-                <div class="padd">{{ dulce.nombre }}</div>
+                <div class="padd">{{'crepas.dulces' | translate}}</div>
         </div>
         <div class="Col">
             <div class="dulce">{{'carrito.cantidad' | translate}}</div>
@@ -736,7 +796,7 @@
     <div class="dulce">{{'crepa.dulce.decoracion' | translate}}</div>
     <div class="padd">
         <ul class="ingredient-list">
-            <div><li *ngFor="let nieve of dulce.orden.decoracion">{{ nieve.nombre }}</li></div>
+            <div><li *ngFor="let nieve of decoracionesCrepaD1[i]"><i *ngIf="!nieve.existencia" (click)="deleteDecoracion(dulce, nieve.nombre, dulce.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ nieve.nombre }}</div></li></div>
         </ul>
     </div>
 </div>
@@ -765,7 +825,7 @@
         <div class="saladaRes">
             <div class="Col">
                     <div class="salado">{{'name' | translate}}</div>
-                    <div class="padd">{{ salada.nombre }}</div>
+                    <div class="padd">{{'crepas.saladas' | translate}}</div>
             </div>
             <div class="Col">
                 <div class="salado">{{'carrito.cantidad' | translate}}</div>
@@ -859,20 +919,21 @@
 
         <!-- Waffles-->
 
-        <div class="ContRes" *ngFor="let dulce of waffles; let i = index">
+        <div class="ContRes" *ngFor="let waffle of waffles; let i = index">
             <div *ngIf="wafflesWarning[i]" class="danger">{{'carrito.danger.waffle' | translate}}</div>
             <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesIngCom[i]" >{{warning1}}</div>
             <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesIngUnt[i]" >{{warning1}}</div>
             <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesNieve[i]" >{{warning1}}</div>
+            <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesDecoraciones[i]" >{{warning1}}</div>
             <div class="waffleRes">
                 <div class="Col">
                         <div class="waffle">{{'name' | translate}}</div>
-                        <div class="padd">{{ dulce.nombre }}</div>
+                        <div class="padd">{{'waffles' | translate}}</div>
                 </div>
                 <div class="Col">
                     <div class="waffle">{{'carrito.cantidad' | translate}}</div>
                     <div class="padd">
-                        <select  (change)="actualizarCantidad(dulce, dulce.id)" [(ngModel)]="dulce.cantidad" class="form-control" name="cantidad">
+                        <select  (change)="actualizarCantidad(waffle, waffle.id)" [(ngModel)]="waffle.cantidad" class="form-control" name="cantidad">
                             <option  [value]= "1">
                                 1
                             </option>
@@ -908,13 +969,13 @@
             </div>
             <div class="Col">
                 <div class="waffle">{{'carrito.precio' | translate}}</div>
-                <div class="padd">{{ dulce.precio }}</div>    
+                <div class="padd">{{ waffle.precio }}</div>    
         </div>
         <div class="Col">
             <div class="waffle">{{'crepa.dulce.ingredientes.complementos' | translate}}</div>
             <div class="padd">
                 <ul class="ingredient-list">
-                    <div><li *ngFor="let ingrediente_com of ingredientesComCrepaD1[i]"><i *ngIf="!ingrediente_com.existencia" (click)="deleteIngredienteCom(dulce, ingrediente_com, dulce.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ ingrediente_com.nombre }}</div></li></div>
+                    <div><li *ngFor="let ingrediente_com of waffles1IngCom[i]"><i *ngIf="!ingrediente_com.existencia" (click)="deleteIngredienteComWaffle(waffle, ingrediente_com.id, waffle.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ ingrediente_com.nombre }}</div></li></div>
                 </ul>
             </div>
         </div>
@@ -922,7 +983,7 @@
             <div class="waffle">{{'crepa.dulce.ingredientes.untables' | translate}}</div>
             <div class="padd">
                 <ul class="ingredient-list">
-                    <div><li *ngFor="let ingrediente_unt of ingredientesUntCrepaD1[i]"><i *ngIf="!ingrediente_unt.existencia" (click)="deleteIngredienteUnt(dulce, ingrediente_unt.id, dulce.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ ingrediente_unt.nombre }}</div></li></div>
+                    <div><li *ngFor="let ingrediente_unt of waffles1IngUnt[i]"><i *ngIf="!ingrediente_unt.existencia" (click)="deleteIngredienteUntWaffle(waffle, ingrediente_unt.id, waffle.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ ingrediente_unt.nombre }}</div></li></div>
                 </ul>
             </div>
         </div>
@@ -930,7 +991,7 @@
             <div class="waffle">{{'crepas.dulce.nieves' | translate}}</div>
             <div class="padd">
                 <ul class="ingredient-list">
-                    <div><li *ngFor="let nieve of nievesCrepaD1[i]"><i *ngIf="!nieve.existencia" (click)="deleteNieve(dulce, nieve.id, dulce.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ nieve.nombre }}</div></li></div>
+                    <div><li *ngFor="let nieve of waffles1Nieve[i]"><i *ngIf="!nieve.existencia" (click)="deleteNieveWaffle(waffle, nieve.id, waffle.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ nieve.nombre }}</div></li></div>
                 </ul>
             </div>
         </div>
@@ -938,20 +999,20 @@
             <div class="waffle">{{'crepa.dulce.decoracion' | translate}}</div>
             <div class="padd">
                 <ul class="ingredient-list">
-                    <div><li *ngFor="let nieve of dulce.orden.decoracion">{{ nieve.nombre }}</li></div>
+                    <div><li *ngFor="let nieve of waffles1Decoraciones[i]"><i *ngIf="!nieve.existencia" (click)="deleteDecoracionWaffle(waffle, nieve.nombre, waffle.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ nieve.nombre }}</div></li></div>
                 </ul>
             </div>
         </div>
         <div class="Col">
             <div class="waffle">{{'carrito.total' | translate}}</div>
-            <div class="padd">{{ dulce.total }}</div>    
+            <div class="padd">{{ waffle.total }}</div>    
         </div>
             </div>
             <div class="accions">
-            <div class="editRes" (click)="redirectUpdte(dulce, dulce.id)">
+            <div class="editRes" (click)="redirectUpdte(waffle, waffle.id)">
                 <i class="fas fa-edit"></i> {{'edit' | translate}}
             </div>
-            <div class="deleteRes" (click)="deleteOrden(dulce.id, dulce.nombre)">
+            <div class="deleteRes" (click)="deleteOrden(waffle.id, waffle.nombre)">
                 <i class="far fa-trash-alt"></i> {{'delete' | translate}}
             </div>        
             </div>
@@ -960,20 +1021,21 @@
 
             <!-- Waffles Canasta-->
 
-            <div class="ContRes" *ngFor="let dulce of wafflesCanasta; let i = index">
+            <div class="ContRes" *ngFor="let waffle of wafflesCanasta; let i = index">
                 <div *ngIf="wafflesCanastaWarning[i]" class="danger">{{'carrito.danger.waffle' | translate}}</div>
                 <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesIngComCanasta[i]" >{{warning1}}</div>
                 <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesIngUntCanasta[i]" >{{warning1}}</div>
                 <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesNieveCanasta[i]" >{{warning1}}</div>
+                <div class="inventarioCom" *ngFor="let warning1 of inventarioWafflesDecoracionesCanasta[i]" >{{warning1}}</div>
                 <div class="canastaRes">
                     <div class="Col">
                             <div class="canasta">{{'name' | translate}}</div>
-                            <div class="padd">{{ dulce.nombre }}</div>
+                            <div class="padd">{{'waffles.canasta' | translate}}</div>
                     </div>
                     <div class="Col">
                         <div class="canasta">{{'carrito.cantidad' | translate}}</div>
                         <div class="padd">
-                            <select  (change)="actualizarCantidad(dulce, dulce.id)" [(ngModel)]="dulce.cantidad" class="form-control" name="cantidad">
+                            <select  (change)="actualizarCantidad(waffle, waffle.id)" [(ngModel)]="waffle.cantidad" class="form-control" name="cantidad">
                                 <option  [value]= "1">
                                     1
                                 </option>
@@ -1009,13 +1071,13 @@
                 </div>
                 <div class="Col">
                     <div class="canasta">{{'carrito.precio' | translate}}</div>
-                    <div class="padd">{{ dulce.precio }}</div>    
+                    <div class="padd">{{ waffle.precio }}</div>    
             </div>
             <div class="Col">
                 <div class="canasta">{{'crepa.dulce.ingredientes.complementos' | translate}}</div>
                 <div class="padd">
                     <ul class="ingredient-list">
-                        <div><li *ngFor="let ingrediente_com of ingredientesComCrepaD1[i]"><i *ngIf="!ingrediente_com.existencia" (click)="deleteIngredienteCom(dulce, ingrediente_com, dulce.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ ingrediente_com.nombre }}</div></li></div>
+                        <div><li *ngFor="let ingrediente_com of wafflesCanasta1IngCom[i]"><i *ngIf="!ingrediente_com.existencia" (click)="deleteIngredienteComWaffleCanasta(waffle, ingrediente_com.id, waffle.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ ingrediente_com.nombre }}</div></li></div>
                     </ul>
                 </div>
             </div>
@@ -1023,7 +1085,7 @@
                 <div class="canasta">{{'crepa.dulce.ingredientes.untables' | translate}}</div>
                 <div class="padd">
                     <ul class="ingredient-list">
-                        <div><li *ngFor="let ingrediente_unt of ingredientesUntCrepaD1[i]"><i *ngIf="!ingrediente_unt.existencia" (click)="deleteIngredienteUnt(dulce, ingrediente_unt.id, dulce.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ ingrediente_unt.nombre }}</div></li></div>
+                        <div><li *ngFor="let ingrediente_unt of wafflesCanasta1IngUnt[i]"><i *ngIf="!ingrediente_unt.existencia" (click)="deleteIngredienteUntWaffleCanasta(waffle, ingrediente_unt.id, waffle.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ ingrediente_unt.nombre }}</div></li></div>
                     </ul>
                 </div>
             </div>
@@ -1031,7 +1093,7 @@
                 <div class="canasta">{{'crepas.dulce.nieves' | translate}}</div>
                 <div class="padd">
                     <ul class="ingredient-list">
-                        <div><li *ngFor="let nieve of nievesCrepaD1[i]"><i *ngIf="!nieve.existencia" (click)="deleteNieve(dulce, nieve.id, dulce.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ nieve.nombre }}</div></li></div>
+                        <div><li *ngFor="let nieve of wafflesCanasta1Nieve[i]"><i *ngIf="!nieve.existencia" (click)="deleteNieveWaffleCanasta(waffle, nieve.id, waffle.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ nieve.nombre }}</div></li></div>
                     </ul>
                 </div>
             </div>
@@ -1039,20 +1101,20 @@
                 <div class="canasta">{{'crepa.dulce.decoracion' | translate}}</div>
                 <div class="padd">
                     <ul class="ingredient-list">
-                        <div><li *ngFor="let nieve of dulce.orden.decoracion">{{ nieve.nombre }}</li></div>
+                        <div><li *ngFor="let nieve of wafflesCanasta1Decoraciones[i]"><i *ngIf="!nieve.existencia" (click)="deleteDecoracionWaffleCanasta(waffle, nieve.nombre, waffle.id)" class="trashS far fa-trash-alt"></i><div class="trash1S">{{ nieve.nombre }}</div></li></div>
                     </ul>
                 </div>
             </div>
             <div class="Col">
                 <div class="canasta">{{'carrito.total' | translate}}</div>
-                <div class="padd">{{ dulce.total }}</div>    
+                <div class="padd">{{ waffle.total }}</div>    
             </div>
                 </div>
                 <div class="accions">
-                <div class="editRes" (click)="redirectUpdte(dulce, dulce.id)">
+                <div class="editRes" (click)="redirectUpdte(waffle, waffle.id)">
                     <i class="fas fa-edit"></i> {{'edit' | translate}}
                 </div>
-                <div class="deleteRes" (click)="deleteOrden(dulce.id, dulce.nombre)">
+                <div class="deleteRes" (click)="deleteOrden(waffle.id, waffle.nombre)">
                     <i class="far fa-trash-alt"></i> {{'delete' | translate}}
                 </div>        
                 </div>
@@ -1067,7 +1129,7 @@
                 <div class="calientesRes">
                     <div class="Col">
                             <div class="caliente">{{'name' | translate}}</div>
-                            <div class="padd">{{ dulce.nombre }}</div>
+                            <div class="padd">{{'bebidas.calientes' | translate}}</div>
                     </div>
                     <div class="Col">
                         <div class="caliente">{{'carrito.cantidad' | translate}}</div>
@@ -1139,7 +1201,7 @@
                 <div class="friasRes">
                     <div class="Col">
                             <div class="frio">{{'name' | translate}}</div>
-                            <div class="padd">{{ dulce.nombre }}</div>
+                            <div class="padd">{{'bebidas.frias' | translate}}</div>
                     </div>
                     <div class="Col">
                         <div class="frio">{{'carrito.cantidad' | translate}}</div>
@@ -1211,7 +1273,7 @@
                 <div class="botanasRes">
                     <div class="Col">
                             <div class="botana">{{'name' | translate}}</div>
-                            <div class="padd">{{ dulce.nombre }}</div>
+                            <div class="padd">{{'botanas' | translate}}</div>
                     </div>
                     <div class="Col">
                         <div class="botana">{{'carrito.cantidad' | translate}}</div>
@@ -1283,7 +1345,7 @@
                 <div class="ensaladaRes">
                     <div class="Col">
                             <div class="ensalada">{{'name' | translate}}</div>
-                            <div class="padd">{{ dulce.nombre }}</div>
+                            <div class="padd">{{'ensaladas.individuales' | translate}}</div>
                     </div>
                     <div class="Col">
                         <div class="ensalada">{{'carrito.cantidad' | translate}}</div>
@@ -1352,6 +1414,9 @@
             </div>
             <div class="realiz">
                 <button (click)="comprar()" class="btn btn-primary">{{'carrito.realiz' | translate}}</button>
+            </div>
+            <div class="realiz">
+                <button (click)="imprimir()" class="btn btn-primary">{{'imprimir' | translate}}</button>
             </div>
         
 </div>

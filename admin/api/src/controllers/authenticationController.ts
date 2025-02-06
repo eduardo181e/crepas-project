@@ -150,7 +150,24 @@ res.status(500).json({ message: '405' });
     const password = decodedToken.password
     const fullname = req.body.fullname
     const newUsername = req.body.newUsername
-    const rows1:any = await pool.promise().query('SELECT * FROM crepas_admin WHERE username = ?', [newUsername.trim()])
+    if(username === newUsername){
+      const rows:any = await pool.promise().query('SELECT * FROM crepas_admin WHERE username = ?', [username.trim()])
+      .then(rows => rows)
+      .catch(err => console.log(err));
+      const user = rows[0][0];
+      await pool.promise().query('UPDATE crepas_admin SET fullname = ? WHERE username = ?', [fullname.trim(), username])
+      .then(() =>{
+        const userData = { id: user.id, username: newUsername, fullname: fullname, lang : user.lang, password: user.password  };
+        const newToken = jwt.sign(userData, 'secreto-seguro', { expiresIn: timeRemaining });
+        res.status(200).json({ message: 'Username change successfully', token:  newToken});
+      })
+      .catch(err => {
+        res.status(500).json({ message: '406' })
+        console.log(err)});
+      
+      
+    }else{
+     const rows1:any = await pool.promise().query('SELECT * FROM crepas_admin WHERE username = ?', [newUsername.trim()])
     .then(rows => rows)
     .catch(err => console.log(err));
     if (rows1[0][0]) {
@@ -165,9 +182,7 @@ if(user.password === password){
   const existingUser:any = await pool.promise().query('SELECT * FROM crepas_admin WHERE username = ?', [newUsername.trim()])
   .then(rows => rows)
   .catch(err => console.log(err));
-  if (existingUser[0][0]) {
 
-  }
 await pool.promise().query('UPDATE crepas_admin SET username = ?, fullname = ? WHERE username = ?', [newUsername.trim(), fullname.trim(), username])
 .then(() =>{
   const userData = { id: user.id, username: newUsername, fullname: fullname, lang : user.lang, password: user.password  };
@@ -182,7 +197,9 @@ await pool.promise().query('UPDATE crepas_admin SET username = ?, fullname = ? W
 } else {
 res.status(500).json({ message: '405' });
 }}
-  }      
+  }         
+    }
+  
     }
 }catch (error:any) {
     if (error instanceof TokenExpiredError) {
@@ -192,7 +209,6 @@ res.status(500).json({ message: '405' });
       res.status(401).json({ message: 'Unknown Error' });
     }
   }  }}
-
   public async changeLanguage(req: Request, res: Response) {
     if(req.headers['authorization'] === undefined){
       res.status(405).json({message: 'Unauthorized'})

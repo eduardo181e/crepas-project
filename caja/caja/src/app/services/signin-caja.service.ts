@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
+import { API_BASE_URL } from './environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SigninCajaService {
-  API_URI = 'http://192.168.0.9:3001/auth'
+  API_URI = (API_BASE_URL+'/auth')
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string): Observable<any> {

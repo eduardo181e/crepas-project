@@ -2,6 +2,7 @@ import { Router } from "express";
 import waffleCanastaIUEController from "../../../controllers/stockPrdoucts/waffleCanasta/waflesControllerIU";
 import waffleCanastaICEController from "../../../controllers/stockPrdoucts/waffleCanasta/waflesControllerIC";
 import waffleCanastaNEController from "../../../controllers/stockPrdoucts/waffleCanasta/waflesControllerN";
+import waffleCanastaDEController from "../../../controllers/stockPrdoucts/waffleCanasta/waflesControllerD";
 class WaffleCanastaStockRoutes {
     public router: Router = Router();
     
@@ -22,6 +23,10 @@ class WaffleCanastaStockRoutes {
         this.router.post("/N/", waffleCanastaNEController.list);
         this.router.post("/N/:id", waffleCanastaNEController.getOne);
         this.router.put("/N/:id", waffleCanastaNEController.update);
+        // Decoraciones
+        this.router.post("/D/", waffleCanastaDEController.list);
+        this.router.post("/D/:id", waffleCanastaDEController.getOne);
+        this.router.put("/D/:id", waffleCanastaDEController.update);
     }
 }
 

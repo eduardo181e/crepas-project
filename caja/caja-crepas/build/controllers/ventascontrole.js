@@ -21,6 +21,7 @@ class VentasController {
     constructor() {
         this.sales = (req, res) => {
             const now = req.params.now;
+            const mesa = req.params.mesa;
             const token = req.headers['authorization'];
             const tokenWithoutBearer = token.replace('Bearer ', '');
             const decodedToken = jsonwebtoken_1.default.verify(tokenWithoutBearer, 'secreto-seguro'); // Decodificar el token
@@ -40,15 +41,18 @@ class VentasController {
             const ingredientesComCrepaDulce = [];
             const ingredientesUntCrepaDulce = [];
             const nievesCrepaDulce = [];
+            const decoracionesCrepaDulce = [];
             const harinaCrepaDulce = [];
             // Waffles
             const ingredientesComWaffle = [];
             const ingredientesUntWaffle = [];
             const nievesWaffle = [];
+            const decoracionesWaffle = [];
             // Waffle Canasta
             const ingredientesComWaffleCanasta = [];
             const ingredientesUntWaffleCanasta = [];
             const nievesWaffleCanasta = [];
+            const decoracionesWaffleCanasta = [];
             // Bebidas Calientes
             const bebidasCalientes1 = [];
             // Bebidas Frías
@@ -97,6 +101,9 @@ class VentasController {
                                     orden.orden.nieve.forEach((nieve) => {
                                         nievesCrepaDulce.push(nieve);
                                     });
+                                    orden.orden.decoracion.forEach((nieve) => {
+                                        decoracionesCrepaDulce.push(nieve);
+                                    });
                                     harinaCrepaDulce.push(orden.orden.harina);
                                 }
                             }
@@ -111,6 +118,9 @@ class VentasController {
                                     orden.orden.nieve.forEach((nieve) => {
                                         nievesWaffle.push(nieve);
                                     });
+                                    orden.orden.decoracion.forEach((nieve) => {
+                                        decoracionesWaffle.push(nieve);
+                                    });
                                 }
                             }
                             if (orden.nombre === nameCrepas_1.waffleCanasta) {
@@ -123,6 +133,9 @@ class VentasController {
                                     });
                                     orden.orden.nieve.forEach((nieve) => {
                                         nievesWaffleCanasta.push(nieve);
+                                    });
+                                    orden.orden.decoracion.forEach((nieve) => {
+                                        decoracionesWaffleCanasta.push(nieve);
                                     });
                                 }
                             }
@@ -619,6 +632,72 @@ class VentasController {
                                 }).catch((err) => { err; });
                             }, 1000);
                         });
+                        var idRepeticionesDD;
+                        const promisedcd = new Promise((resolve, reject) => {
+                            const resultados = {};
+                            var test = 0;
+                            decoracionesCrepaDulce.forEach((aderezo, index) => {
+                                const id = aderezo.nombre;
+                                test++;
+                                if (!resultados[id]) {
+                                    resultados[id] = 0;
+                                }
+                                resultados[id]++;
+                            });
+                            const repPromises = Object.entries(resultados).map(([id, repeticiones]) => __awaiter(this, void 0, void 0, function* () {
+                                return Promise.resolve([id, repeticiones]);
+                            }));
+                            Promise.all(repPromises).then((rep) => {
+                                if (Object.keys(rep).length === Object.keys(resultados).length) {
+                                    idRepeticionesDD = rep;
+                                    resolve();
+                                }
+                            });
+                        });
+                        const resultdcd = [];
+                        promisedcd.then(() => {
+                            const promise1 = new Promise((resolve) => {
+                                idRepeticionesDD.forEach((id, index) => __awaiter(this, void 0, void 0, function* () {
+                                    const product_id = id[0];
+                                    const sucursal_id = sucursal_id1;
+                                    const repeticiones = id[1];
+                                    const query = 'SELECT * FROM cdde WHERE decoracion = ? AND sucursal_id = ? AND adminId = ?';
+                                    const existencia = yield database_1.default.promise().query(query, [product_id, sucursal_id, adminId])
+                                        .then((existencia) => existencia[0])
+                                        .catch(err => console.log(err));
+                                    console.log('cantidad', existencia[0].cantidad);
+                                    if (existencia[0].cantidad === 0) {
+                                        if (existencia[0].existencia === 0) {
+                                            resultdcd.push(false);
+                                        }
+                                        else if (existencia[0].existencia === 1) {
+                                            resultdcd.push(true);
+                                        }
+                                    }
+                                    else if (existencia[0].cantidad === 1) {
+                                        if (existencia[0].existencia === 0) {
+                                            resultdcd.push(false);
+                                        }
+                                        else if (existencia[0].existencia === 1) {
+                                            if (existencia[0].inventario >= repeticiones) {
+                                                resultdcd.push(true);
+                                            }
+                                            else if (existencia[0].inventario < repeticiones) {
+                                                resultdcd.push(false);
+                                            }
+                                        }
+                                    }
+                                    // Si se han completado todas las operaciones de push, resolver la promesa
+                                    if (index === idRepeticionesDD.length - 1) {
+                                        resolve();
+                                    }
+                                }));
+                            });
+                            setTimeout(() => {
+                                promise1.then(() => {
+                                }).catch((err) => { err; });
+                            }, 1000);
+                        });
                         var idRepeticionesHD;
                         const promiseHcd = new Promise((resolve, reject) => {
                             const resultados = {};
@@ -880,6 +959,71 @@ class VentasController {
                                 }).catch((err) => { err; });
                             }, 1000);
                         });
+                        var idRepeticionesDW;
+                        const promisedw = new Promise((resolve, reject) => {
+                            const resultados = {};
+                            var test = 0;
+                            decoracionesWaffle.forEach((aderezo, index) => {
+                                const id = aderezo.nombre;
+                                test++;
+                                if (!resultados[id]) {
+                                    resultados[id] = 0;
+                                }
+                                resultados[id]++;
+                            });
+                            const repPromises = Object.entries(resultados).map(([id, repeticiones]) => __awaiter(this, void 0, void 0, function* () {
+                                return Promise.resolve([id, repeticiones]);
+                            }));
+                            Promise.all(repPromises).then((rep) => {
+                                if (Object.keys(rep).length === Object.keys(resultados).length) {
+                                    idRepeticionesDW = rep;
+                                    resolve();
+                                }
+                            });
+                        });
+                        const resultdcw = [];
+                        promisedw.then(() => {
+                            const promise1 = new Promise((resolve) => {
+                                idRepeticionesDW.forEach((id, index) => __awaiter(this, void 0, void 0, function* () {
+                                    const product_id = id[0];
+                                    const sucursal_id = sucursal_id1;
+                                    const repeticiones = id[1];
+                                    const query = 'SELECT * FROM wde WHERE decoracion = ? AND sucursal_id = ? AND adminId = ?';
+                                    const existencia = yield database_1.default.promise().query(query, [product_id, sucursal_id, adminId])
+                                        .then(existencia => existencia[0])
+                                        .catch(err => console.log(err));
+                                    if (existencia[0].cantidad === 0) {
+                                        if (existencia[0].existencia === 0) {
+                                            resultdcw.push(false);
+                                        }
+                                        else if (existencia[0].existencia === 1) {
+                                            resultdcw.push(true);
+                                        }
+                                    }
+                                    else if (existencia[0].cantidad === 1) {
+                                        if (existencia[0].existencia === 0) {
+                                            resultdcw.push(false);
+                                        }
+                                        else if (existencia[0].existencia === 1) {
+                                            if (existencia[0].inventario >= repeticiones) {
+                                                resultdcw.push(true);
+                                            }
+                                            else if (existencia[0].inventario < repeticiones) {
+                                                resultdcw.push(false);
+                                            }
+                                        }
+                                    }
+                                    // Si se han completado todas las operaciones de push, resolver la promesa
+                                    if (index === idRepeticionesDW.length - 1) {
+                                        resolve();
+                                    }
+                                }));
+                            });
+                            setTimeout(() => {
+                                promise1.then(() => {
+                                }).catch((err) => { err; });
+                            }, 1000);
+                        });
                         // Waffles Canasta
                         var idRepeticionesICWC;
                         const promiseICwc = new Promise((resolve, reject) => {
@@ -1067,6 +1211,72 @@ class VentasController {
                                     }
                                     // Si se han completado todas las operaciones de push, resolver la promesa
                                     if (index === idRepeticionesNWC.length - 1) {
+                                        resolve();
+                                    }
+                                }));
+                            });
+                            setTimeout(() => {
+                                promise1.then(() => {
+                                }).catch((err) => { err; });
+                            }, 1000);
+                        });
+                        var idRepeticionesDWC;
+                        const promisedwc = new Promise((resolve, reject) => {
+                            const resultados = {};
+                            var test = 0;
+                            decoracionesWaffleCanasta.forEach((aderezo, index) => {
+                                const id = aderezo.nombre;
+                                test++;
+                                if (!resultados[id]) {
+                                    resultados[id] = 0;
+                                }
+                                resultados[id]++;
+                            });
+                            const repPromises = Object.entries(resultados).map(([id, repeticiones]) => __awaiter(this, void 0, void 0, function* () {
+                                return Promise.resolve([id, repeticiones]);
+                            }));
+                            Promise.all(repPromises).then((rep) => {
+                                if (Object.keys(rep).length === Object.keys(resultados).length) {
+                                    idRepeticionesDWC = rep;
+                                    resolve();
+                                }
+                            });
+                        });
+                        const resultdcwc = [];
+                        promisedwc.then(() => {
+                            const promise1 = new Promise((resolve) => {
+                                idRepeticionesDWC.forEach((id, index) => __awaiter(this, void 0, void 0, function* () {
+                                    const product_id = id[0];
+                                    const sucursal_id = sucursal_id1;
+                                    const repeticiones = id[1];
+                                    const query = 'SELECT * FROM wcde WHERE decoracion = ? AND sucursal_id = ? AND adminId = ?';
+                                    const existencia = yield database_1.default.promise().query(query, [product_id, sucursal_id, adminId])
+                                        .then(existencia => existencia[0])
+                                        .catch(err => console.log(err));
+                                    console.log('query', query);
+                                    if (existencia[0].cantidad === 0) {
+                                        if (existencia[0].existencia === 0) {
+                                            resultdcwc.push(false);
+                                        }
+                                        else if (existencia[0].existencia === 1) {
+                                            resultdcwc.push(true);
+                                        }
+                                    }
+                                    else if (existencia[0].cantidad === 1) {
+                                        if (existencia[0].existencia === 0) {
+                                            resultdcwc.push(false);
+                                        }
+                                        else if (existencia[0].existencia === 1) {
+                                            if (existencia[0].inventario >= repeticiones) {
+                                                resultdcwc.push(true);
+                                            }
+                                            else if (existencia[0].inventario < repeticiones) {
+                                                resultdcwc.push(false);
+                                            }
+                                        }
+                                    }
+                                    // Si se han completado todas las operaciones de push, resolver la promesa
+                                    if (index === idRepeticionesDWC.length - 1) {
                                         resolve();
                                     }
                                 }));
@@ -1354,8 +1564,11 @@ class VentasController {
                         resultBF;
                         resultB;
                         resultE;
+                        resultdcwc;
+                        resultdcw;
+                        resultdcd;
                         setTimeout(() => __awaiter(this, void 0, void 0, function* () {
-                            const result = resultA.concat(resultAB, resultIP, resultIB, resultICcd, resultIUcd, resultNcd, resultHcd, resultICw, resultIUw, resultNw, resultICwc, resultIUwc, resultNwc, resultBC, resultBF, resultB, resultE);
+                            const result = resultA.concat(resultAB, resultIP, resultIB, resultICcd, resultIUcd, resultNcd, resultHcd, resultICw, resultIUw, resultNw, resultICwc, resultIUwc, resultNwc, resultBC, resultBF, resultB, resultE, resultdcwc, resultdcw, resultdcd);
                             console.log(result);
                             const resultFinal = result.every((value) => value === true);
                             console.log(resultFinal);
@@ -1375,7 +1588,8 @@ class VentasController {
                                     orden: JSON.stringify(ordenes),
                                     numero_productos: cantidadProductos,
                                     total: totalProductos,
-                                    adminId: adminId
+                                    adminId: adminId,
+                                    mesa: mesa
                                 };
                                 const query = 'INSERT INTO factura_caja SET ?';
                                 const factura1 = yield databaseproduct_1.default.promise().query(query, [factura])
@@ -1776,6 +1990,65 @@ class VentasController {
                                             .catch(err => console.log(err));
                                     }));
                                 }
+                                console.log('venta decoraciones 1', idRepeticionesDD);
+                                if (idRepeticionesDD.length > 0) {
+                                    idRepeticionesDD.forEach((id) => __awaiter(this, void 0, void 0, function* () {
+                                        const product_id = id[0];
+                                        const sucursal_id = sucursal_id1;
+                                        const repeticiones = id[1];
+                                        const query = 'SELECT * FROM cdde WHERE decoracion = ? AND sucursal_id = ? AND adminId = ?';
+                                        yield database_1.default.promise().query(query, [product_id, sucursal_id, adminId])
+                                            .then((existencia) => {
+                                            console.log('venta decoraciones 1', existencia);
+                                            const venta = {
+                                                decoracion: existencia[0][0].decoracion,
+                                                product_id: existencia[0][0].id,
+                                                sucursal_id: sucursal_id1,
+                                                created_at: now,
+                                                ventas: repeticiones,
+                                                factura_id: factura_id,
+                                                adminId: adminId
+                                            };
+                                            console.log('venta decoraciones 1', venta);
+                                            console.log(existencia[0][0]);
+                                            console.log(venta);
+                                            if (existencia[0][0].cantidad === 0) {
+                                                const query = 'INSERT INTO cddv SET ?';
+                                                const venta1 = database_1.default.promise().query(query, [venta])
+                                                    .then(venta1 => {
+                                                    venta1[0];
+                                                    console.log('todo bien cdd');
+                                                })
+                                                    .catch(err => console.log(err));
+                                            }
+                                            else if (existencia[0][0].cantidad === 1) {
+                                                if (existencia[0][0].inventario > repeticiones) {
+                                                    const query1 = 'UPDATE cdde SET inventario = inventario - ? WHERE decoracion = ? AND sucursal_id = ? AND adminId = ?';
+                                                    const existencia1 = database_1.default.promise().query(query1, [repeticiones, product_id, sucursal_id, adminId]);
+                                                    console.log(venta);
+                                                    const query = 'INSERT INTO cddv SET ?';
+                                                    const venta1 = database_1.default.promise().query(query, [venta])
+                                                        .then(venta1 => {
+                                                        console.log('todo bien cdd');
+                                                    })
+                                                        .catch(err => console.log(err));
+                                                }
+                                                else if (existencia[0][0].inventario === repeticiones) {
+                                                    const query1 = 'UPDATE cdde SET inventario = inventario - ?, existencia = 0 WHERE decoracion = ? AND sucursal_id = ? AND adminId = ?';
+                                                    const existencia1 = database_1.default.promise().query(query1, [repeticiones, product_id, sucursal_id, adminId]);
+                                                    console.log(venta);
+                                                    const query = 'INSERT INTO cddv SET ?';
+                                                    const venta1 = database_1.default.promise().query(query, [venta])
+                                                        .then(venta1 => {
+                                                        console.log('todo bien cdd');
+                                                    })
+                                                        .catch(err => console.log(err));
+                                                }
+                                            }
+                                        })
+                                            .catch(err => console.log(err));
+                                    }));
+                                }
                                 if (idRepeticionesHD.length > 0) {
                                     idRepeticionesHD.forEach((id) => __awaiter(this, void 0, void 0, function* () {
                                         const product_id = id[0];
@@ -2000,6 +2273,62 @@ class VentasController {
                                             .catch(err => console.log(err));
                                     }));
                                 }
+                                if (idRepeticionesDW.length > 0) {
+                                    idRepeticionesDW.forEach((id) => __awaiter(this, void 0, void 0, function* () {
+                                        const product_id = id[0];
+                                        const sucursal_id = sucursal_id1;
+                                        const repeticiones = id[1];
+                                        const query = 'SELECT * FROM wde WHERE decoracion = ? AND sucursal_id = ? AND adminId = ?';
+                                        const existencia = yield database_1.default.promise().query(query, [product_id, sucursal_id, adminId])
+                                            .then((existencia) => {
+                                            const venta = {
+                                                decoracion: existencia[0][0].decoracion,
+                                                product_id: existencia[0][0].id,
+                                                sucursal_id: sucursal_id1,
+                                                created_at: now,
+                                                ventas: repeticiones,
+                                                factura_id: factura_id,
+                                                adminId: adminId
+                                            };
+                                            console.log(existencia[0][0]);
+                                            console.log(venta);
+                                            if (existencia[0][0].cantidad === 0) {
+                                                const query = 'INSERT INTO wdv SET ?';
+                                                const venta1 = database_1.default.promise().query(query, [venta])
+                                                    .then(venta1 => {
+                                                    venta1[0];
+                                                    console.log('todo bien wd');
+                                                })
+                                                    .catch(err => console.log(err));
+                                            }
+                                            else if (existencia[0][0].cantidad === 1) {
+                                                if (existencia[0][0].inventario > repeticiones) {
+                                                    const query1 = 'UPDATE wde SET inventario = inventario - ? WHERE decoracion = ? AND sucursal_id = ? AND adminId = ?';
+                                                    const existencia1 = database_1.default.promise().query(query1, [repeticiones, product_id, sucursal_id, adminId]);
+                                                    console.log(venta);
+                                                    const query = 'INSERT INTO wdv SET ?';
+                                                    const venta1 = database_1.default.promise().query(query, [venta])
+                                                        .then(venta1 => {
+                                                        console.log('todo bien wd');
+                                                    })
+                                                        .catch(err => console.log(err));
+                                                }
+                                                else if (existencia[0][0].inventario === repeticiones) {
+                                                    const query1 = 'UPDATE wde SET inventario = inventario - ?, existencia = 0 WHERE decoracion = ? AND sucursal_id = ? AND adminId = ?';
+                                                    const existencia1 = database_1.default.promise().query(query1, [repeticiones, product_id, sucursal_id, adminId]);
+                                                    console.log(venta);
+                                                    const query = 'INSERT INTO wdv SET ?';
+                                                    const venta1 = database_1.default.promise().query(query, [venta])
+                                                        .then(venta1 => {
+                                                        console.log('todo bien wd');
+                                                    })
+                                                        .catch(err => console.log(err));
+                                                }
+                                            }
+                                        })
+                                            .catch(err => console.log(err));
+                                    }));
+                                }
                                 if (idRepeticionesICWC.length > 0) {
                                     idRepeticionesICWC.forEach((id) => __awaiter(this, void 0, void 0, function* () {
                                         const product_id = id[0];
@@ -2162,6 +2491,62 @@ class VentasController {
                                                     const venta1 = database_1.default.promise().query(query, [venta])
                                                         .then(venta1 => {
                                                         console.log('todo bien wcn');
+                                                    })
+                                                        .catch(err => console.log(err));
+                                                }
+                                            }
+                                        })
+                                            .catch(err => console.log(err));
+                                    }));
+                                }
+                                if (idRepeticionesDWC.length > 0) {
+                                    idRepeticionesDWC.forEach((id) => __awaiter(this, void 0, void 0, function* () {
+                                        const product_id = id[0];
+                                        const sucursal_id = sucursal_id1;
+                                        const repeticiones = id[1];
+                                        const query = 'SELECT * FROM wcde WHERE decoracion = ? AND sucursal_id = ? AND adminId = ?';
+                                        const existencia = yield database_1.default.promise().query(query, [product_id, sucursal_id, adminId])
+                                            .then((existencia) => {
+                                            const venta = {
+                                                decoracion: existencia[0][0].decoracion,
+                                                product_id: existencia[0][0].id,
+                                                sucursal_id: sucursal_id1,
+                                                created_at: now,
+                                                ventas: repeticiones,
+                                                factura_id: factura_id,
+                                                adminId: adminId
+                                            };
+                                            console.log(existencia[0][0]);
+                                            console.log(venta);
+                                            if (existencia[0][0].cantidad === 0) {
+                                                const query = 'INSERT INTO wcdv SET ?';
+                                                const venta1 = database_1.default.promise().query(query, [venta])
+                                                    .then(venta1 => {
+                                                    venta1[0];
+                                                    console.log('todo bien wcd');
+                                                })
+                                                    .catch(err => console.log(err));
+                                            }
+                                            else if (existencia[0][0].cantidad === 1) {
+                                                if (existencia[0][0].inventario > repeticiones) {
+                                                    const query1 = 'UPDATE wcde SET inventario = inventario - ? WHERE decoracion = ? AND sucursal_id = ? AND adminId = ?';
+                                                    const existencia1 = database_1.default.promise().query(query1, [repeticiones, product_id, sucursal_id, adminId]);
+                                                    console.log(venta);
+                                                    const query = 'INSERT INTO wcdv SET ?';
+                                                    const venta1 = database_1.default.promise().query(query, [venta])
+                                                        .then(venta1 => {
+                                                        console.log('todo bien wcd');
+                                                    })
+                                                        .catch(err => console.log(err));
+                                                }
+                                                else if (existencia[0][0].inventario === repeticiones) {
+                                                    const query1 = 'UPDATE wcde SET inventario = inventario - ?, existencia = 0 WHERE decoracion = ? AND sucursal_id = ? AND adminId = ?';
+                                                    const existencia1 = database_1.default.promise().query(query1, [repeticiones, product_id, sucursal_id, adminId]);
+                                                    console.log(venta);
+                                                    const query = 'INSERT INTO wcdv SET ?';
+                                                    const venta1 = database_1.default.promise().query(query, [venta])
+                                                        .then(venta1 => {
+                                                        console.log('todo bien wcd');
                                                     })
                                                         .catch(err => console.log(err));
                                                 }

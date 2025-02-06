@@ -5,6 +5,7 @@ import crepaDulceHController from '../../../controllers/productsController/Crepa
 import crepaDulceIUController from '../../../controllers/productsController/CrepaDulce/crepaDulceControllerIU';
 import crepaDulceICController from '../../../controllers/productsController/CrepaDulce/crepaDulceContrllerIC';
 import crepaDulceNController from '../../../controllers/productsController/CrepaDulce/crepaDulceControllerN';
+import crepaDulceDController from '../../../controllers/productsController/CrepaDulce/crepaDulceControllerD';
 import crepaDulcePController from '../../../controllers/productsController/CrepaDulce/crepaDulceControllerP';
 
 class CrepaDulceRoutes {
@@ -40,6 +41,10 @@ class CrepaDulceRoutes {
         this.router.post('/N/',  crepaDulceNController.create);
         this.router.delete('/N/:id', crepaDulceNController.delete);
         this.router.put('/N/:id', crepaDulceNController.update);
+        // Decoracion Crepa Dulce
+        this.router.get('/D/', crepaDulceDController.list); 
+        this.router.get('/D/:id', crepaDulceDController.getOne);       
+        this.router.put('/D/:id', crepaDulceDController.update);
         // Precios Crepa Dulce
         this.router.get('/P/', crepaDulcePController.list); 
         this.router.get('/P/:id', crepaDulcePController.getOne);       

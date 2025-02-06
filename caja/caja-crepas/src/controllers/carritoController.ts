@@ -81,6 +81,24 @@ class CarritoController {
         })
      }
 
+     public async updateMesa (req: Request, res: Response){
+        const token:any = req.headers['authorization'];
+        const tokenWithoutBearer = token.replace('Bearer ', '');
+        const decodedToken:any = jwt.verify(tokenWithoutBearer, 'secreto-seguro');
+        const userId = decodedToken.id;
+        const adminId = decodedToken.adminId
+        const mesa = req.body.mesa
+        const query = 'UPDATE carrito_caja SET mesa = ? WHERE userId = ? AND adminId = ?';
+        const bebidas: any = await pool.promise().query(query, [mesa, userId, adminId])
+        .then(() => {
+            res.json({text: 'Mesa actualizada'})
+        })
+        .catch(err => {
+            console.error('Error al actualizar la orden', err);
+            res.status(200).json({error: 'Error al actualizar la orden'})
+        })
+     }
+
      public async deleteAll (req: Request, res: Response){
         const token:any = req.headers['authorization'];
         const tokenWithoutBearer = token.replace('Bearer ', '');
@@ -106,6 +124,7 @@ class CarritoController {
         const ordenId = req.params.id;
         const adminId = decodedToken.adminId
         const { orden } = req.body;
+        orden.precio = req.body.precio
         const orden1 = JSON.stringify(orden)
         const Orden:any = {
             orden: orden1,

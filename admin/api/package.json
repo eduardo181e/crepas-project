@@ -4,8 +4,9 @@
   "description": "api_aministrar la aplicasion",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -w",
-    "dev": "nodemon build/index.js"
+    "build": "tsc",
+    "dev": "nodemon build/index.js",
+    "start": "node build/index.js"
   },
   "keywords": [],
   "author": "",

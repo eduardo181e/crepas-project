@@ -3,6 +3,7 @@ import crepaDulceHEController from "../../../controllers/stockPrdoucts/CrepaDulc
 import crepaDulceICEController from "../../../controllers/stockPrdoucts/CrepaDulce/crepaDulceContrllerIC";
 import crepaDulceIUEController from "../../../controllers/stockPrdoucts/CrepaDulce/crepaDulceControllerIU";
 import crepaDulceNEController from "../../../controllers/stockPrdoucts/CrepaDulce/crepaDulceControllerN";
+import crepaDulceDEController from "../../../controllers/stockPrdoucts/CrepaDulce/crepaDulceControllerD";
 class CrepaDulceStockRoutes {
   public router: Router = Router();
 
@@ -27,6 +28,10 @@ class CrepaDulceStockRoutes {
     this.router.post("/N/", crepaDulceNEController.list);
     this.router.post("/N/:id", crepaDulceNEController.getOne);
     this.router.put("/N/:id", crepaDulceNEController.update);
+    // Nieves
+    this.router.post("/D/", crepaDulceDEController.list);
+    this.router.post("/D/:id", crepaDulceDEController.getOne);
+    this.router.put("/D/:id", crepaDulceDEController.update);
   }
 }
 

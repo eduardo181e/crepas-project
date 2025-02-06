@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { usuarioC } from '../models/usuarioCaja';
+import { API_BASE_URL } from './environment';
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosCajaService {
-  API_URI = 'http://localhost:3000/caja'
+  API_URI = API_BASE_URL+'/caja'
   constructor(private http: HttpClient) { }
     // Ingrediente Untable
     getUsuarios(){

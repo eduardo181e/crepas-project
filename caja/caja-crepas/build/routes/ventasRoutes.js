@@ -8,7 +8,7 @@ class VentasRoutes {
         this.config();
     }
     config() {
-        this.router.post('/sales/:now', ventasControle_1.ventasController.sales);
+        this.router.post('/sales/:now/:mesa', ventasControle_1.ventasController.sales);
     }
 }
 const ventasRoutes = new VentasRoutes();

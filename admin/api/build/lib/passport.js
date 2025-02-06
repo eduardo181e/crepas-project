@@ -97,7 +97,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             'Miel de Maguey'
         ];
         cdUntable.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 // Acción para números pares
                 yield database_1.default.promise().query('INSERT INTO cdiu SET ?', { ingrediente_unt: element, inventario: 1, adminId: adminId })
                     .then((result) => {
@@ -115,7 +115,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             }
         }));
         cdUntable.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 // Acción para números pares
                 yield database_1.default.promise().query('INSERT INTO wiu SET ?', { ingrediente_unt: element, inventario: 1, adminId: adminId })
                     .then((result) => {
@@ -133,7 +133,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             }
         }));
         cdUntable.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 // Acción para números pares
                 yield database_1.default.promise().query('INSERT INTO wciu SET ?', { ingrediente_unt: element, inventario: 1, adminId: adminId })
                     .then((result) => {
@@ -157,7 +157,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             'Napolitano'
         ];
         cdHarinas.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 // Acción para números pares
                 yield database_1.default.promise().query('INSERT INTO cdth SET ?', { harina: element, inventario: 1, adminId: adminId })
                     .then((result) => {
@@ -237,7 +237,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             },
         ];
         cdComplementos.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 // Acción para números pares
                 yield database_1.default.promise().query('INSERT INTO cdic SET ?', { ingrediente_com: element.complemento, tipo: element.tipo, inventario: 1, adminId: adminId })
                     .then((result) => {
@@ -255,7 +255,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             }
         }));
         cdComplementos.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 // Acción para números pares
                 yield database_1.default.promise().query('INSERT INTO wic SET ?', { ingrediente_com: element.complemento, tipo: element.tipo, inventario: 1, adminId: adminId })
                     .then((result) => {
@@ -273,7 +273,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             }
         }));
         cdComplementos.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 // Acción para números pares
                 yield database_1.default.promise().query('INSERT INTO wcic SET ?', { ingrediente_com: element.complemento, tipo: element.tipo, inventario: 1, adminId: adminId })
                     .then((result) => {
@@ -303,7 +303,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             'Oreo'
         ];
         cdNieve.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 // Acción para números pares
                 yield database_1.default.promise().query('INSERT INTO cdn SET ?', { nieve: element, inventario: 1, adminId: adminId })
                     .then((result) => {
@@ -321,7 +321,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             }
         }));
         cdNieve.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 // Acción para números pares
                 yield database_1.default.promise().query('INSERT INTO wn SET ?', { nieve: element, inventario: 1, adminId: adminId })
                     .then((result) => {
@@ -339,7 +339,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             }
         }));
         cdNieve.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 // Acción para números pares
                 yield database_1.default.promise().query('INSERT INTO wcn SET ?', { nieve: element, inventario: 1, adminId: adminId })
                     .then((result) => {
@@ -356,6 +356,66 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
                 });
             }
         }));
+        const cdDecoraciones = [
+            'Azucar Glass',
+            'Canela en polvo',
+            'Lechera',
+            'Chocolate'
+        ];
+        cdDecoraciones.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
+            if ((index + 1) % 2 === 0) {
+                // Acción para números pares
+                yield database_1.default.promise().query('INSERT INTO cdd SET ?', { decoracion: element, inventario: 1, adminId: adminId })
+                    .then((result) => {
+                })
+                    .catch(err => {
+                });
+            }
+            else {
+                // Acción para números impares
+                yield database_1.default.promise().query('INSERT INTO cdd SET ?', { decoracion: element, inventario: 0, adminId: adminId })
+                    .then((result) => {
+                })
+                    .catch(err => {
+                });
+            }
+        }));
+        cdDecoraciones.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
+            if ((index + 1) % 2 === 0) {
+                // Acción para números pares
+                yield database_1.default.promise().query('INSERT INTO wcd SET ?', { decoracion: element, inventario: 1, adminId: adminId })
+                    .then((result) => {
+                })
+                    .catch(err => {
+                });
+            }
+            else {
+                // Acción para números impares
+                yield database_1.default.promise().query('INSERT INTO wcd SET ?', { decoracion: element, inventario: 0, adminId: adminId })
+                    .then((result) => {
+                })
+                    .catch(err => {
+                });
+            }
+        }));
+        cdDecoraciones.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
+            if ((index + 1) % 2 === 0) {
+                // Acción para números pares
+                yield database_1.default.promise().query('INSERT INTO wd SET ?', { decoracion: element, inventario: 1, adminId: adminId })
+                    .then((result) => {
+                })
+                    .catch(err => {
+                });
+            }
+            else {
+                // Acción para números impares
+                yield database_1.default.promise().query('INSERT INTO wd SET ?', { decoracion: element, inventario: 0, adminId: adminId })
+                    .then((result) => {
+                })
+                    .catch(err => {
+                });
+            }
+        }));
         const csIP = [
             'Pollo a la plancha',
             'Bistec a a la plancha',
@@ -366,7 +426,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             'Pepperoni'
         ];
         csIP.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 // Acción para números pares
                 yield database_1.default.promise().query('INSERT INTO csip SET ?', { ingrediente_pri: element, inventario: 1, adminId: adminId })
                     .then((result) => {
@@ -392,7 +452,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             'Honey Mustard'
         ];
         csAE.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 // Acción para números pares
                 yield database_1.default.promise().query('INSERT INTO csa SET ?', { adereso: element, inventario: 1, adminId: adminId })
                     .then((result) => {
@@ -413,7 +473,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             'Salsa Chilena'
         ];
         csAB.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 // Acción para números pares
                 yield database_1.default.promise().query('INSERT INTO csab SET ?', { adereso_base: element, inventario: 1, adminId: adminId })
                     .then((result) => {
@@ -435,7 +495,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             'Queso Gratinado'
         ];
         csIB.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 // Acción para números pares
                 yield database_1.default.promise().query('INSERT INTO csib SET ?', { ingrediente_base: element, inventario: 1, adminId: adminId })
                     .then((result) => {
@@ -456,6 +516,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             { descripcion: 'Regular', precio: 55 },
             { descripcion: 'Extra', precio: 5 },
             { descripcion: 'Nieve', precio: 25 },
+            { descripcion: 'Decoracion', precio: 5 },
         ];
         cdp.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
             yield database_1.default.promise().query('INSERT INTO cdp SET ?', { precio: element.precio, descripcion: element.descripcion, adminId: adminId })
@@ -480,6 +541,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             { descripcion: 'Nieve', precio: 25 },
             { descripcion: 'Extra', precio: 5 },
             { descripcion: 'Regular', precio: 55 },
+            { descripcion: 'Decoracion', precio: 5 },
         ];
         wp.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
             yield database_1.default.promise().query('INSERT INTO wp SET ?', { precio: element.precio, descripcion: element.descripcion, adminId: adminId })
@@ -491,6 +553,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
         const wcp = [
             { descripcion: 'Extra', precio: 5 },
             { descripcion: 'Regular', precio: 55 },
+            { descripcion: 'Decoracion', precio: 5 },
         ];
         wcp.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
             yield database_1.default.promise().query('INSERT INTO wcp SET ?', { precio: element.precio, descripcion: element.descripcion, adminId: adminId })
@@ -512,7 +575,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             }
         ];
         ensaladaInd.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 const Ensalada = {
                     ensalada_ind: element.nombre,
                     descripcion: element.descripcion,
@@ -564,7 +627,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             },
         ];
         Botanas.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 const botana = {
                     botana: element.nombre,
                     precio: element.precio,
@@ -633,7 +696,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             },
         ];
         bebidasCalientes.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 const bebida = {
                     bebida: element.nombre,
                     descripcion: element.descripcion,
@@ -710,7 +773,7 @@ passport_1.default.use('local.signup', new passport_local_1.Strategy({
             },
         ];
         bebidasFrias.forEach((element, index) => __awaiter(void 0, void 0, void 0, function* () {
-            if (index % 2 === 0) {
+            if ((index + 1) % 2 === 0) {
                 const bebida = {
                     bebida: element.nombre,
                     descripcion: element.descripcion,

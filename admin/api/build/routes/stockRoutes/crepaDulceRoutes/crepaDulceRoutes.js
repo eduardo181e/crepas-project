@@ -8,6 +8,7 @@ const crepaDulceControllerH_1 = __importDefault(require("../../../controllers/st
 const crepaDulceContrllerIC_1 = __importDefault(require("../../../controllers/stockPrdoucts/CrepaDulce/crepaDulceContrllerIC"));
 const crepaDulceControllerIU_1 = __importDefault(require("../../../controllers/stockPrdoucts/CrepaDulce/crepaDulceControllerIU"));
 const crepaDulceControllerN_1 = __importDefault(require("../../../controllers/stockPrdoucts/CrepaDulce/crepaDulceControllerN"));
+const crepaDulceControllerD_1 = __importDefault(require("../../../controllers/stockPrdoucts/CrepaDulce/crepaDulceControllerD"));
 class CrepaDulceStockRoutes {
     constructor() {
         this.router = (0, express_1.Router)();
@@ -30,6 +31,10 @@ class CrepaDulceStockRoutes {
         this.router.post("/N/", crepaDulceControllerN_1.default.list);
         this.router.post("/N/:id", crepaDulceControllerN_1.default.getOne);
         this.router.put("/N/:id", crepaDulceControllerN_1.default.update);
+        // Nieves
+        this.router.post("/D/", crepaDulceControllerD_1.default.list);
+        this.router.post("/D/:id", crepaDulceControllerD_1.default.getOne);
+        this.router.put("/D/:id", crepaDulceControllerD_1.default.update);
     }
 }
 const crepaDulceStockRoutes = new CrepaDulceStockRoutes();

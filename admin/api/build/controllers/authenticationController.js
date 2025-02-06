@@ -175,37 +175,53 @@ class AuthenticationContoller {
                         const password = decodedToken.password;
                         const fullname = req.body.fullname;
                         const newUsername = req.body.newUsername;
-                        const rows1 = yield database_1.default.promise().query('SELECT * FROM crepas_admin WHERE username = ?', [newUsername.trim()])
-                            .then(rows => rows)
-                            .catch(err => console.log(err));
-                        if (rows1[0][0]) {
-                            res.status(500).json({ message: '407' });
-                        }
-                        else {
+                        if (username === newUsername) {
                             const rows = yield database_1.default.promise().query('SELECT * FROM crepas_admin WHERE username = ?', [username.trim()])
                                 .then(rows => rows)
                                 .catch(err => console.log(err));
-                            if (rows[0][0] !== undefined && rows.length > 0) {
-                                const user = rows[0][0];
-                                if (user.password === password) {
-                                    const existingUser = yield database_1.default.promise().query('SELECT * FROM crepas_admin WHERE username = ?', [newUsername.trim()])
-                                        .then(rows => rows)
-                                        .catch(err => console.log(err));
-                                    if (existingUser[0][0]) {
+                            const user = rows[0][0];
+                            yield database_1.default.promise().query('UPDATE crepas_admin SET fullname = ? WHERE username = ?', [fullname.trim(), username])
+                                .then(() => {
+                                const userData = { id: user.id, username: newUsername, fullname: fullname, lang: user.lang, password: user.password };
+                                const newToken = jsonwebtoken_1.default.sign(userData, 'secreto-seguro', { expiresIn: timeRemaining });
+                                res.status(200).json({ message: 'Username change successfully', token: newToken });
+                            })
+                                .catch(err => {
+                                res.status(500).json({ message: '406' });
+                                console.log(err);
+                            });
+                        }
+                        else {
+                            const rows1 = yield database_1.default.promise().query('SELECT * FROM crepas_admin WHERE username = ?', [newUsername.trim()])
+                                .then(rows => rows)
+                                .catch(err => console.log(err));
+                            if (rows1[0][0]) {
+                                res.status(500).json({ message: '407' });
+                            }
+                            else {
+                                const rows = yield database_1.default.promise().query('SELECT * FROM crepas_admin WHERE username = ?', [username.trim()])
+                                    .then(rows => rows)
+                                    .catch(err => console.log(err));
+                                if (rows[0][0] !== undefined && rows.length > 0) {
+                                    const user = rows[0][0];
+                                    if (user.password === password) {
+                                        const existingUser = yield database_1.default.promise().query('SELECT * FROM crepas_admin WHERE username = ?', [newUsername.trim()])
+                                            .then(rows => rows)
+                                            .catch(err => console.log(err));
+                                        yield database_1.default.promise().query('UPDATE crepas_admin SET username = ?, fullname = ? WHERE username = ?', [newUsername.trim(), fullname.trim(), username])
+                                            .then(() => {
+                                            const userData = { id: user.id, username: newUsername, fullname: fullname, lang: user.lang, password: user.password };
+                                            const newToken = jsonwebtoken_1.default.sign(userData, 'secreto-seguro', { expiresIn: timeRemaining });
+                                            res.status(200).json({ message: 'Username change successfully', token: newToken });
+                                        })
+                                            .catch(err => {
+                                            res.status(500).json({ message: '406' });
+                                            console.log(err);
+                                        });
                                     }
-                                    yield database_1.default.promise().query('UPDATE crepas_admin SET username = ?, fullname = ? WHERE username = ?', [newUsername.trim(), fullname.trim(), username])
-                                        .then(() => {
-                                        const userData = { id: user.id, username: newUsername, fullname: fullname, lang: user.lang, password: user.password };
-                                        const newToken = jsonwebtoken_1.default.sign(userData, 'secreto-seguro', { expiresIn: timeRemaining });
-                                        res.status(200).json({ message: 'Username change successfully', token: newToken });
-                                    })
-                                        .catch(err => {
-                                        res.status(500).json({ message: '406' });
-                                        console.log(err);
-                                    });
-                                }
-                                else {
-                                    res.status(500).json({ message: '405' });
+                                    else {
+                                        res.status(500).json({ message: '405' });
+                                    }
                                 }
                             }
                         }
